@@ -7,9 +7,10 @@ using UnityEngine;
 using Mirror;
 using Random = UnityEngine.Random;
 
-public class PerlinNoiseMap : NetworkBehaviour {
+public class PerlinNoiseMap : NetworkBehaviour
+{
 
-	public GameObject MiniMapCam;
+    public GameObject MiniMapCam;
 
     Dictionary<int, List<GameObject>> tileset;
     Dictionary<int, GameObject> tile_groups;
@@ -38,8 +39,9 @@ public class PerlinNoiseMap : NetworkBehaviour {
     int x_offset = 0; // <- +>
     int y_offset = 0; // v- +^
 
-    private void Awake() {
-	    MiniMapCam = GetComponentInChildren<Camera>().gameObject;
+    private void Awake()
+    {
+        MiniMapCam = GetComponentInChildren<Camera>().gameObject;
     }
 
     void CreateTileset()
@@ -64,7 +66,7 @@ public class PerlinNoiseMap : NetworkBehaviour {
         tile_groups = new Dictionary<int, GameObject>();
         foreach (KeyValuePair<int, List<GameObject>> prefab_pair in tileset)
         {
-            GameObject tile_group = new GameObject("TileType"+prefab_pair.Key);
+            GameObject tile_group = new GameObject("TileType" + prefab_pair.Key);
             tile_group.transform.parent = gameObject.transform;
             tile_group.transform.localPosition = new Vector3(0, 0, 0);
             tile_groups.Add(prefab_pair.Key, tile_group);
@@ -86,13 +88,15 @@ public class PerlinNoiseMap : NetworkBehaviour {
         magnification = Random.Range(8, 15);
         x_offset = Random.Range(-999999, 999999);
         y_offset = Random.Range(-999999, 999999);
-        for(int x = 0; x < map_width; x++) {
-    		noise_grid.Add(new List<int>());
-    		for(int y = 0; y < map_height; y++) {
-    			int tile_id = GetIdUsingPerlin(x, y);
-    			noise_grid[x].Add(tile_id);
-    		}
-    	}
+        for (int x = 0; x < map_width; x++)
+        {
+            noise_grid.Add(new List<int>());
+            for (int y = 0; y < map_height; y++)
+            {
+                int tile_id = GetIdUsingPerlin(x, y);
+                noise_grid[x].Add(tile_id);
+            }
+        }
         potGenerateTreatment();
     }
 
@@ -127,8 +131,8 @@ public class PerlinNoiseMap : NetworkBehaviour {
 		    }
 	    }
     }
-    
-    
+
+
 
     void RenderMap()
     {
@@ -172,98 +176,108 @@ public class PerlinNoiseMap : NetworkBehaviour {
         GameObject tile_group = tile_groups[666];
 
         int numberTile = 0;
-        if (tile_id != 10 && tileset[tile_id].Any()) {
-	        if (tile_id == 3) {
-		        int[] tabcornerId = new int[9];
-		        //[ 6 , 7 , 8 ]
-		        //[ 3 , 4 , 5 ]		Tab idCorner  3 = dirtgrass    2 = dirt
-		        //[ 0 , 1 , 2 ]
-		        int counter = 0;
-		        for (int a = -1; a <= 1; a++) {
-			        for (int b = -1; b <= 1; b++) {
-				        tabcornerId[counter] = noise_grid[x+b][y+a];
-				        Debug.Log("b:"+b+" a:"+a+" counter:"+counter);
-				        counter++;
-			        }
-		        }
-		        int whichTile = whichDirtGrass(tabcornerId);
-		        switch (whichTile) {
-			        case 0:
-				        tile_prefab = tileset[3][0];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 1:
-				        tile_prefab = tileset[3][1];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 2:
-				        tile_prefab = tileset[3][2];
-				        tile_group = tile_groups[3];  
-				        break;
-			        case 3:
-				        tile_prefab = tileset[3][3];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 4:
-				        tile_prefab = tileset[3][4];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 5:
-				        tile_prefab = tileset[3][5];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 6:
-				        tile_prefab = tileset[3][6];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 7:
-				        tile_prefab = tileset[3][7];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 8:
-				        tile_prefab = tileset[3][8];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 9:
-				        tile_prefab = tileset[3][9];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 10:
-				        tile_prefab = tileset[3][10];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 11:
-				        tile_prefab = tileset[3][11];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        case 12:
-				        int size = tileset[4].Count;
-				        if (size > 1) {
-					        numberTile = Random.Range(0, size);
-				        }
-				        tile_prefab = tileset[4][numberTile];
-				        tile_group = tile_groups[3]; 
-				        break;
-			        default:
-				        int size2 = tileset[2].Count;
-				        if (size2 > 1) {
-					        numberTile = Random.Range(0, size2);
-				        }
-				        tile_prefab = tileset[2][numberTile];
-				        tile_group = tile_groups[3]; 
-				        break;
-		        }
-	        }
-	        else {
-		        int size = tileset[tile_id].Count;
-		        if (size > 1) {
-			        numberTile = Random.Range(0, size);
-		        }
-		        tile_prefab = tileset[tile_id][numberTile];
-		        tile_group = tile_groups[tile_id]; 
-	        }
+        if (tile_id != 10 && tileset[tile_id].Any())
+        {
+            if (tile_id == 3)
+            {
+                int[] tabcornerId = new int[9];
+                //[ 6 , 7 , 8 ]
+                //[ 3 , 4 , 5 ]		Tab idCorner  3 = dirtgrass    2 = dirt
+                //[ 0 , 1 , 2 ]
+                int counter = 0;
+                for (int a = -1; a <= 1; a++)
+                {
+                    for (int b = -1; b <= 1; b++)
+                    {
+                        tabcornerId[counter] = noise_grid[x + b][y + a];
+                        Debug.Log("b:" + b + " a:" + a + " counter:" + counter);
+                        counter++;
+                    }
+                }
+                int whichTile = whichDirtGrass(tabcornerId);
+                switch (whichTile)
+                {
+                    case 0:
+                        tile_prefab = tileset[3][0];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 1:
+                        tile_prefab = tileset[3][1];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 2:
+                        tile_prefab = tileset[3][2];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 3:
+                        tile_prefab = tileset[3][3];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 4:
+                        tile_prefab = tileset[3][4];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 5:
+                        tile_prefab = tileset[3][5];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 6:
+                        tile_prefab = tileset[3][6];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 7:
+                        tile_prefab = tileset[3][7];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 8:
+                        tile_prefab = tileset[3][8];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 9:
+                        tile_prefab = tileset[3][9];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 10:
+                        tile_prefab = tileset[3][10];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 11:
+                        tile_prefab = tileset[3][11];
+                        tile_group = tile_groups[3];
+                        break;
+                    case 12:
+                        int size = tileset[4].Count;
+                        if (size > 1)
+                        {
+                            numberTile = Random.Range(0, size);
+                        }
+                        tile_prefab = tileset[4][numberTile];
+                        tile_group = tile_groups[3];
+                        break;
+                    default:
+                        int size2 = tileset[2].Count;
+                        if (size2 > 1)
+                        {
+                            numberTile = Random.Range(0, size2);
+                        }
+                        tile_prefab = tileset[2][numberTile];
+                        tile_group = tile_groups[3];
+                        break;
+                }
+            }
+            else
+            {
+                int size = tileset[tile_id].Count;
+                if (size > 1)
+                {
+                    numberTile = Random.Range(0, size);
+                }
+                tile_prefab = tileset[tile_id][numberTile];
+                tile_group = tile_groups[tile_id];
+            }
         }
-        else {
+        else
+        {
             int size = prefab_Wall.Count;
             if (size > 1)
             {
@@ -282,79 +296,96 @@ public class PerlinNoiseMap : NetworkBehaviour {
         tile_grid[x].Add(tile);
     }
 
-    private int whichDirtGrass(int[] tabcornerId) {
-	    bool[] isDirt = new bool[9];
-	    for (int i = 0; i < tabcornerId.Length; i++) {
-		    isDirt[i] = tabcornerId[i] == 2 || tabcornerId[i] == 1;
-	    }
-	    
-	    
-	    // center
-	    if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8]) {
-		    return 12;
-	    }
-	    
-	    // inner corner
-	    // BR
-	    if (!isDirt[0] && !isDirt[1] && isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8]) {
-		    return 0;
-	    }
-	    // BL
-	    if (isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8]) {
-		    return 1;
-	    }
-	    // TR
-	    if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && isDirt[8]) {
-		    return 4;
-	    }
-	    // TL
-	    if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && isDirt[6] && !isDirt[7] && !isDirt[8]) {
-		    return 5;
-	    }
-	    
-	    // sides
-	    // top / bottom
-	    if (!isDirt[3] && !isDirt[5]) {
-		    //up
-		    if (!isDirt[7]) {
-			    return 2;
-		    }
-		    // down
-		    if (!isDirt[1]) {
-			    return 6;
-		    }
-	    }
-	    // right / left 
-	    if (!isDirt[1] && !isDirt[7]) {
-		    //up
-		    if (!isDirt[3]) {
-			    return 7;
-		    }
-		    // down
-		    if (!isDirt[5]) {
-			    return 3;
-		    }
-	    }
+    private int whichDirtGrass(int[] tabcornerId)
+    {
+        bool[] isDirt = new bool[9];
+        for (int i = 0; i < tabcornerId.Length; i++)
+        {
+            isDirt[i] = tabcornerId[i] == 2 || tabcornerId[i] == 1;
+        }
 
 
-	    // outer Corner
-	    // BR
-	    if (isDirt[1] && isDirt[5]) {
-		    return 8;
-	    }
-	    // BL
-	    if (isDirt[1] && isDirt[3]) {
-		    return 9;
-	    }
-	    // TR
-	    if (isDirt[5] && isDirt[7]) {
-		    return 10;
-	    }
-	    // TL
-	    if (isDirt[3] && isDirt[7]) {
-		    return 11;
-	    }
-	    return 13;
+        // center
+        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
+            return 12;
+        }
+
+        // inner corner
+        // BR
+        if (!isDirt[0] && !isDirt[1] && isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
+            return 0;
+        }
+        // BL
+        if (isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
+            return 1;
+        }
+        // TR
+        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && isDirt[8])
+        {
+            return 4;
+        }
+        // TL
+        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
+            return 5;
+        }
+
+        // sides
+        // top / bottom
+        if (!isDirt[3] && !isDirt[5])
+        {
+            //up
+            if (!isDirt[7])
+            {
+                return 2;
+            }
+            // down
+            if (!isDirt[1])
+            {
+                return 6;
+            }
+        }
+        // right / left 
+        if (!isDirt[1] && !isDirt[7])
+        {
+            //up
+            if (!isDirt[3])
+            {
+                return 7;
+            }
+            // down
+            if (!isDirt[5])
+            {
+                return 3;
+            }
+        }
+
+
+        // outer Corner
+        // BR
+        if (isDirt[1] && isDirt[5])
+        {
+            return 8;
+        }
+        // BL
+        if (isDirt[1] && isDirt[3])
+        {
+            return 9;
+        }
+        // TR
+        if (isDirt[5] && isDirt[7])
+        {
+            return 10;
+        }
+        // TL
+        if (isDirt[3] && isDirt[7])
+        {
+            return 11;
+        }
+        return 13;
     }
 
     public SyncList<List<int>> getNoiseGrid()
@@ -362,11 +393,12 @@ public class PerlinNoiseMap : NetworkBehaviour {
         return noise_grid;
     }
 
-    void SpawCamera() {
-	    float xCam = ((map_width / 2f) - 0.5f);
-	    float yCam = ((map_height / 2f)-0.5f);
-	    MiniMapCam.transform.position = new Vector3(xCam, yCam, -10);
-	    MiniMapCam.GetComponent<Camera>().orthographicSize = map_width / 2f;
+    void SpawCamera()
+    {
+        float xCam = ((map_width / 2f) - 0.5f);
+        float yCam = ((map_height / 2f) - 0.5f);
+        MiniMapCam.transform.position = new Vector3(xCam, yCam, -10);
+        MiniMapCam.GetComponent<Camera>().orthographicSize = map_width / 2f;
     }
 
     private void Start()
