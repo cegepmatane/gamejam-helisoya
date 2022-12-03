@@ -135,4 +135,8 @@ public class PerlinNoiseMap : MonoBehaviour {
         tile_grid[x].Add(tile);
         
     }
+
+    public List<List<int>> getNoiseGrid() {
+	    return noise_grid;
+    }
 }
