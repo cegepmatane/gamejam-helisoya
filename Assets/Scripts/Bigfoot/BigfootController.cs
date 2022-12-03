@@ -19,7 +19,7 @@ public class BigfootController : NetworkBehaviour
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-        
+
     }
 
 
@@ -35,7 +35,7 @@ public class BigfootController : NetworkBehaviour
 
         transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
 
-        if(movementDirection != Vector2.zero)
+        if (movementDirection != Vector2.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
@@ -48,8 +48,8 @@ public class BigfootController : NetworkBehaviour
         }
     }
 
-    
-    [Command(requiresAuthority =false)]
+
+    [Command(requiresAuthority = false)]
     public void TakeDamage(int dammage)
     {
         currentHealth -= dammage;
@@ -68,12 +68,12 @@ public class BigfootController : NetworkBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        
-       // if (Input.GetKeyDown(KeyCode.P))
-        //{
-            Debug.LogWarning("collision ennemi");
 
-            TakeDamage(20);
+        // if (Input.GetKeyDown(KeyCode.P))
+        //{
+        Debug.LogWarning("collision ennemi");
+
+        TakeDamage(20);
         //}
     }
 

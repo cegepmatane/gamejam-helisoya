@@ -5,13 +5,23 @@ using Mirror;
 
 public class HunterMovement : NetworkBehaviour
 {
-    [SyncVar]
-    private int currentAmmo;
 
+    [Header("Shooting")]
+    public int currentAmmo;
     [SerializeField] private int maxAmmo;
 
-    [SerializeField] private float speed;
+    public int totalAmmo;
+    [SerializeField] private float fireCooldownTime;
+    private float lastFire;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform barrel;
+    private float currentTimeToWait;
 
+    [Header("Reloading")]
+    [SerializeField] private float reloadTime;
+
+    [Header("Movement")]
+    [SerializeField] private float speed;
     [SerializeField] private Transform feets;
     [SerializeField] private NetworkAnimator feetAnimator;
     [SerializeField] private NetworkAnimator bodyAnimator;
@@ -27,6 +37,7 @@ public class HunterMovement : NetworkBehaviour
             localPlayer = this;
         }
         currentAmmo = maxAmmo;
+        totalAmmo = 18;
     }
 
 
@@ -35,8 +46,7 @@ public class HunterMovement : NetworkBehaviour
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         transform.position += move * speed * Time.deltaTime;
 
-        feetAnimator.animator.SetBool("moving", move != Vector3.zero);
-        bodyAnimator.animator.SetBool("moving", move != Vector3.zero);
+
 
         if (move != Vector3.zero)
         {
@@ -44,7 +54,62 @@ public class HunterMovement : NetworkBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, 720 * Time.deltaTime);
         }
 
+        feetAnimator.animator.SetBool("moving", move != Vector3.zero);
+        bodyAnimator.animator.SetBool("moving", move != Vector3.zero);
+
+
+        if (Time.time - lastFire >= currentTimeToWait)
+        {
+            if (Input.GetKeyDown(KeyCode.R) && totalAmmo > 0 && maxAmmo != currentAmmo)
+            {
+                lastFire = Time.time;
+                currentTimeToWait = reloadTime;
+                bodyAnimator.SetTrigger("reload");
+                ChangeMagazine();
+                GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
+            }
+            else if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
+            {
+                lastFire = Time.time;
+                currentTimeToWait = fireCooldownTime;
+                bodyAnimator.SetTrigger("shoot");
+
+                currentAmmo--;
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                pos.z = 0;
+                SpawnBullet(pos);
+                GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
+            }
+        }
+
     }
 
+    public void ChangeMagazine()
+    {
+        while (currentAmmo < maxAmmo && totalAmmo > 0)
+        {
+            currentAmmo++;
+            totalAmmo--;
+        }
+    }
+
+
+    [Command]
+    public void SpawnBullet(Vector3 pos)
+    {
+        RPCSpawnBullet(pos);
+    }
+
+
+    [ClientRpc]
+    public void RPCSpawnBullet(Vector3 pos)
+    {
+        GameObject bullet = Instantiate(bulletPrefab, barrel.position, Quaternion.identity);
+
+        Vector3 vec = pos - bullet.transform.position;
+        vec.Normalize();
+
+        bullet.GetComponent<Bullet>().Init(vec);
+    }
 
 }
