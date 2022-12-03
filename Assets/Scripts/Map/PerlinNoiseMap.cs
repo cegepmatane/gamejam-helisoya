@@ -7,8 +7,9 @@ using UnityEngine;
 using Mirror;
 using Random = UnityEngine.Random;
 
-public class PerlinNoiseMap : NetworkBehaviour
-{
+public class PerlinNoiseMap : NetworkBehaviour {
+
+	public GameObject MiniMapCam;
 
     Dictionary<int, List<GameObject>> tileset;
     Dictionary<int, GameObject> tile_groups;
@@ -36,6 +37,9 @@ public class PerlinNoiseMap : NetworkBehaviour
     int x_offset = 0; // <- +>
     int y_offset = 0; // v- +^
 
+    private void Awake() {
+	    MiniMapCam = GetComponentInChildren<Camera>().gameObject;
+    }
 
     void CreateTileset()
     {
@@ -88,6 +92,19 @@ public class PerlinNoiseMap : NetworkBehaviour
     			noise_grid[x].Add(tile_id);
     		}
     	}
+        potGenerateTreatment();
+    }
+
+    void potGenerateTreatment() {
+	    for(int x = 0; x < map_width; x++) {
+		    for(int y = 0; y < map_height; y++) {
+			    // wall
+			    if (x == 0 || x == map_width-1 || y == 0 || y == map_height-1) {
+				    noise_grid[x][y] = 10;
+			    }
+			    
+		    }
+	    }
     }
     
     // Todo Post treatment map 
@@ -134,7 +151,7 @@ public class PerlinNoiseMap : NetworkBehaviour
         GameObject tile_group = tile_groups[666];
 
         int numberTile = 0;
-        if (tileset[tile_id].Any() && !(x==0 || x== map_width-1 || y == 0 || y == map_height-1)) {
+        if (tile_id != 10 && tileset[tile_id].Any()) {
 	        if (tile_id == 3 || tile_id == 4) {
 		        int[] tabcornerId = new int[9];
 		        //[ 6 , 7 , 8 ]
@@ -225,8 +242,7 @@ public class PerlinNoiseMap : NetworkBehaviour
 		        tile_group = tile_groups[tile_id]; 
 	        }
         }
-        else if ((x == 0 || x == map_width - 1 || y == 0 || y == map_height - 1))
-        {
+        else {
             int size = prefab_Wall.Count;
             if (size > 1)
             {
@@ -325,6 +341,13 @@ public class PerlinNoiseMap : NetworkBehaviour
         return noise_grid;
     }
 
+    void SpawCamera() {
+	    float xCam = ((map_width / 2f) - 0.5f);
+	    float yCam = ((map_height / 2f)-0.5f);
+	    MiniMapCam.transform.position = new Vector3(xCam, yCam, -10);
+	    MiniMapCam.GetComponent<Camera>().orthographicSize = map_width / 2f;
+    }
+
     private void Start()
     {
         CreateTileset();
@@ -334,6 +357,7 @@ public class PerlinNoiseMap : NetworkBehaviour
             GenerateMap();
         }
         RenderMap();
+        SpawCamera();
     }
 
     /*

@@ -375,6 +375,7 @@ MonoBehaviour:
   feets: {fileID: 9121581309810598524}
   feetAnimator: {fileID: 4505090127168939329}
   bodyAnimator: {fileID: 7587760721200460581}
+  maxStunTime: 2
 --- !u!114 &8730794239480374643
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,6 +31,11 @@ public class HunterMovement : NetworkBehaviour
 
     Vector3 move;
 
+    [Header("Stun")]
+    [SerializeField] private float maxStunTime;
+    [HideInInspector] public bool stuned;
+
+
     public static HunterMovement localPlayer;
 
     public override void OnStartClient()
@@ -41,12 +46,26 @@ public class HunterMovement : NetworkBehaviour
         }
         currentAmmo = maxAmmo;
         totalAmmo = 18;
+        stuned = false;
     }
 
 
     void Update()
     {
         if (GameGUI.instance.paused) return;
+
+        if (stuned)
+        {
+            transform.position += move * speed * Time.deltaTime;
+            if (Time.time - lastFire >= currentTimeToWait)
+            {
+                stuned = false;
+                move = Vector3.zero;
+            }
+            return;
+        }
+
+
 
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         transform.position += move * speed * Time.deltaTime;
@@ -87,6 +106,23 @@ public class HunterMovement : NetworkBehaviour
             }
         }
 
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Stun(Vector3.right);
+        }
+
+    }
+
+    public void Stun(Vector3 newMove)
+    {
+        if (stuned) return;
+        move = newMove;
+        stuned = true;
+        lastFire = Time.time;
+        currentTimeToWait = maxStunTime;
+        bodyAnimator.animator.SetBool("moving", false);
+        feetAnimator.animator.SetBool("moving", false);
     }
 
     public void ChangeMagazine()

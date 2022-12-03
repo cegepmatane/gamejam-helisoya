@@ -54,7 +54,9 @@ public class Bullet : NetworkBehaviour
         else if (col.tag.Equals("Player"))
         {
             if (col.GetComponent<HunterMovement>().isLocalPlayer) return;
-            // Stun Hunter (Like when hit by bigfoot)
+            Vector3 vec = col.transform.position - transform.position;
+            vec.Normalize();
+            col.GetComponent<HunterMovement>().Stun(vec);
         }
     }
 }
