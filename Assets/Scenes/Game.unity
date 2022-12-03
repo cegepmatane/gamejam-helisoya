@@ -175,31 +175,32 @@ MonoBehaviour:
   syncInterval: 0.1
   MiniMapCam: {fileID: 0}
   prefab_Rock:
-  - {fileID: 6653704017905257293, guid: 44bdaf1ba785995f3b024df17491d823, type: 3}
+  - {fileID: 9140415674373747232, guid: 44bdaf1ba785995f3b024df17491d823, type: 3}
   prefab_Dirt_Rock:
-  - {fileID: 414624999756010178, guid: 0c25f5a4dd3a7d18dbd7ae7c15011a34, type: 3}
+  - {fileID: 4695470885554449906, guid: 41bc2a7e6a03d66c3acb83b84b7f8520, type: 3}
   prefab_Dirt:
-  - {fileID: 756904428869450112, guid: 8e072fb0717ba8552bfe61cf720affcd, type: 3}
+  - {fileID: 2890196070993460847, guid: fb1a66ce3bade648b8796d9f3b93a346, type: 3}
   prefab_DirtyGrass:
-  - {fileID: 7855866112345073497, guid: cf52c653252356e37aaef7b7f2ece892, type: 3}
-  - {fileID: 2901704464609130266, guid: 89896f2af25741ef8bf1e1bde4effebf, type: 3}
-  - {fileID: 3190986435237172645, guid: aa3c9eb38a2ba9ae9b0702a9d73a2bf0, type: 3}
-  - {fileID: 2062081260262677385, guid: 2e45a608bf1ee367fbc8fdbba72da375, type: 3}
-  - {fileID: 8834953222826936875, guid: ff8b983bc7a8f08908060f512b90ba7d, type: 3}
-  - {fileID: 3354688781150536772, guid: 6426b5fce531ef382b675e5713100154, type: 3}
-  - {fileID: 6414111677001498877, guid: 7e9c011c4f2de96f6bc9b04336e4b889, type: 3}
-  - {fileID: 3040054201877495998, guid: db49281558670d016bfab00adc833bfc, type: 3}
-  - {fileID: 832793899725875196, guid: af0e9a524c778a1f78bf3278aae57a53, type: 3}
-  - {fileID: 8801921797954707171, guid: b6d174d6f3e6633ceb5a164ebc152c70, type: 3}
-  - {fileID: 3317683913170184444, guid: 9b80f5eac736ea74f94bea4c0cf8a7f0, type: 3}
-  - {fileID: 488023449171887296, guid: 1e124360474d454a6b330c5d9449b09f, type: 3}
+  - {fileID: 1081031978319873020, guid: 78e0d54d51c927eb9a16446b06ee0f90, type: 3}
+  - {fileID: 2561270629846702617, guid: 89896f2af25741ef8bf1e1bde4effebf, type: 3}
+  - {fileID: 4814682282029408473, guid: aa3c9eb38a2ba9ae9b0702a9d73a2bf0, type: 3}
+  - {fileID: 1300418937265073069, guid: f05d7790917b2e418b7413b63285bfcd, type: 3}
+  - {fileID: 6783210398412803826, guid: ff8b983bc7a8f08908060f512b90ba7d, type: 3}
+  - {fileID: 4260707298733137634, guid: 6426b5fce531ef382b675e5713100154, type: 3}
+  - {fileID: 5730962941019496210, guid: 7e9c011c4f2de96f6bc9b04336e4b889, type: 3}
+  - {fileID: 2348665387752222022, guid: db49281558670d016bfab00adc833bfc, type: 3}
+  - {fileID: 2693440311150594960, guid: af0e9a524c778a1f78bf3278aae57a53, type: 3}
+  - {fileID: 6557285337833793345, guid: b6d174d6f3e6633ceb5a164ebc152c70, type: 3}
+  - {fileID: 4848587370593188362, guid: 9b80f5eac736ea74f94bea4c0cf8a7f0, type: 3}
+  - {fileID: 8272512714396100479, guid: 1e124360474d454a6b330c5d9449b09f, type: 3}
   prefab_Grass:
-  - {fileID: 2543619310397558767, guid: b4ee1726cacff7562ab5e92a6de2fae0, type: 3}
+  - {fileID: 6912921008147784687, guid: b4ee1726cacff7562ab5e92a6de2fae0, type: 3}
   prefab_Tree:
-  - {fileID: 9130221733159828684, guid: 7c99f99c1bf96b44b9a118d889d9f1be, type: 3}
+  - {fileID: 5135231579585707407, guid: 05ede736ecff4d4d79064f5fc135a566, type: 3}
   prefab_Wall:
-  - {fileID: 2331120946917276357, guid: 43fcb9bd1da922b388b4dccecf35297d, type: 3}
-  prefab_default: {fileID: 5029271055260409550, guid: 049f5939f66a7b388adfbbbcd4e84150, type: 3}
+  - {fileID: 4561664249283590, guid: 89be89a91758bd9f5b0373e39eecec35, type: 3}
+  prefab_default: {fileID: 8373628895604743464, guid: 049f5939f66a7b388adfbbbcd4e84150, type: 3}
+  prefab_AmmunitionCrate: {fileID: 6012355252179814776, guid: f90d583d50dea04459c388b4733a7d96, type: 3}
   map_width: 100
   map_height: 100
 --- !u!4 &1006266265
