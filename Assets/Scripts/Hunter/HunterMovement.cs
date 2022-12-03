@@ -32,7 +32,7 @@ public class HunterMovement : NetworkBehaviour
     [Header("Stun")]
     [SerializeField] private float maxStunTime;
     [HideInInspector] public bool stuned;
-
+    [SerializeField] private SpriteRenderer bodyRenderer;
 
     public static HunterMovement localPlayer;
 
@@ -59,6 +59,7 @@ public class HunterMovement : NetworkBehaviour
             {
                 stuned = false;
                 move = Vector3.zero;
+                CmdColor(Color.white);
             }
             return;
         }
@@ -112,15 +113,40 @@ public class HunterMovement : NetworkBehaviour
 
     }
 
+    [Command]
+    public void CmdColor(Color col)
+    {
+        RpcColor(col);
+    }
+
+    [ClientRpc]
+    public void RpcColor(Color col)
+    {
+        bodyRenderer.color = col;
+    }
+
+
+    [Command(requiresAuthority = false)]
     public void Stun(Vector3 newMove)
     {
+        RpcStun(newMove);
+    }
+
+    [ClientRpc]
+    public void RpcStun(Vector3 newMove)
+    {
         if (stuned) return;
+
+        bodyRenderer.color = Color.red;
+        if (!isLocalPlayer) return;
+
         move = newMove;
         stuned = true;
         lastFire = Time.time;
         currentTimeToWait = maxStunTime;
         bodyAnimator.animator.SetBool("moving", false);
         feetAnimator.animator.SetBool("moving", false);
+
     }
 
     public void ChangeMagazine()

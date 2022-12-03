@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8142efa214ff5d84eabe627d542800d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stunRotationSpeed: 300
 --- !u!1 &8730794239480374641
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +377,8 @@ MonoBehaviour:
   feetAnimator: {fileID: 4505090127168939329}
   bodyAnimator: {fileID: 7587760721200460581}
   maxStunTime: 2
+  stuned: 0
+  bodyRenderer: {fileID: 6732775250519988268}
 --- !u!114 &8730794239480374643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,7 +566,7 @@ MonoBehaviour:
   syncScale: 0
   showGizmos: 0
   showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.49019608}
 --- !u!114 &7587760721200460581
 MonoBehaviour:
   m_ObjectHideFlags: 0
