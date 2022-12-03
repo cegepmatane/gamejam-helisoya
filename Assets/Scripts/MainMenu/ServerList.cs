@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Mirror.Discovery;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 public class ServerList : MonoBehaviour
 {
@@ -14,7 +17,25 @@ public class ServerList : MonoBehaviour
     [SerializeField] private GameObject prefabServer;
     void Start()
     {
+        string[] ipSplit = GetLocalIPv4().Split(".");
+        string ipCorrect = ipSplit[0] + "." + ipSplit[1] + "." + ipSplit[2] + ".255";
+        print(ipCorrect);
+        networkDiscovery.BroadcastAddress = ipCorrect;
         SearchServers();
+    }
+
+
+    public string GetLocalIPv4()
+    {
+        IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new System.Exception("No network adapters with an IPv4 address in the system!");
     }
     public void SearchServers()
     {
