@@ -20,69 +20,99 @@ SpriteAtlas:
       readable: 1
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 2
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
+      enableRotation: 0
       enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 231aadfe4f32c9f5782a1d7fa8a9b8f1, type: 3}
+    - {fileID: 1003052808, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 494272672, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1176338153, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 866697634, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 695766381, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -205231636, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -1645585840, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 481023119, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -1570215873, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1005084776, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1674679411, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1345988848, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -206748463, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 30403541, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1708256942, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1024256476, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -33143136, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -969768, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -2110915733, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: -1443270769, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+    - {fileID: 1054630206, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: af1bee51e929053ce8e177c6eab593b6, type: 3}
-  - {fileID: 21300000, guid: 94c164715072f4b7e953f5fe9f0ef30f, type: 3}
-  - {fileID: 21300000, guid: e3a3ffa1fb7fff24b8c964eb12049499, type: 3}
-  - {fileID: 21300000, guid: 52c5add260be41aeeb89264f56cb5fda, type: 3}
-  - {fileID: -1725235295, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: -630528442, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 1402513790, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 2119340435, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 2053694494, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: -411922681, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 703428005, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: -1774731998, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: -1704657669, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 658735401, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 2131674131, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 1271158287, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
-  - {fileID: 21300000, guid: c29351571a609258c99c079ec25d1987, type: 3}
-  - {fileID: 21300000, guid: 1ff0c3388e325da91b6c20cb16df93b8, type: 3}
-  - {fileID: 21300000, guid: 7d9889f9b10ca36be93c4be661a08d7e, type: 3}
-  - {fileID: 21300000, guid: b44ac0ca47b35d2cabe28572cc592f92, type: 3}
-  - {fileID: 21300000, guid: 1986361b846daee0d8e4136714be270b, type: 3}
-  - {fileID: 21300000, guid: e7f9e9db3ccfecb9e8b410ceb43c6566, type: 3}
+  - {fileID: -1570215873, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1005084776, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 695766381, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -205231636, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -1645585840, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 481023119, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1003052808, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 494272672, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1176338153, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 866697634, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -969768, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -33143136, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1024256476, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1708256942, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 30403541, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -206748463, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1345988848, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1674679411, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: 1054630206, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -1443270769, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
+  - {fileID: -2110915733, guid: 4c95d759718b3bd7787412954bb8f98e, type: 3}
   m_PackedSpriteNamesToIndex:
-  - dirt_desatured
-  - Grass_normal
-  - Wall
-  - Rock_noBG
-  - Dirt_Grass_TileSet_10
-  - Dirt_Grass_TileSet_11
-  - Dirt_Grass_TileSet_9
-  - Dirt_Grass_TileSet_8
-  - Dirt_Grass_TileSet_7
-  - Dirt_Grass_TileSet_6
-  - Dirt_Grass_TileSet_5
-  - Dirt_Grass_TileSet_4
-  - Dirt_Grass_TileSet_3
-  - Dirt_Grass_TileSet_2
-  - Dirt_Grass_TileSet_1
-  - Dirt_Grass_TileSet_0
-  - tree
-  - tree_noBG
-  - dirt_desatured_rocks
-  - Default
-  - Dirt_Grass
-  - Rock
+  - MapTileSet_8
+  - MapTileSet_9
+  - MapTileSet_4
+  - MapTileSet_5
+  - MapTileSet_6
+  - MapTileSet_7
+  - MapTileSet_0
+  - MapTileSet_1
+  - MapTileSet_2
+  - MapTileSet_3
+  - MapTileSet_17
+  - MapTileSet_16
+  - MapTileSet_15
+  - MapTileSet_14
+  - MapTileSet_13
+  - MapTileSet_12
+  - MapTileSet_11
+  - MapTileSet_10
+  - MapTileSet_20
+  - MapTileSet_19
+  - MapTileSet_18
   m_RenderDataMap: {}
   m_Tag: MapAtlas
   m_IsVariant: 0
