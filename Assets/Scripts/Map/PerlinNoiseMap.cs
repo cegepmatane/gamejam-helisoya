@@ -14,6 +14,7 @@ public class PerlinNoiseMap : MonoBehaviour {
 	public List<GameObject> prefab_Rock = new List<GameObject>();
 	public List<GameObject> prefab_Dirt_Rock = new List<GameObject>();
 	public List<GameObject> prefab_Dirt = new List<GameObject>();
+	public List<GameObject> prefab_DirtyGrass = new List<GameObject>();
 	public List<GameObject> prefab_Grass = new List<GameObject>();
 	public List<GameObject> prefab_Tree = new List<GameObject>();
 	public List<GameObject> prefab_Wall = new List<GameObject>();
@@ -35,6 +36,7 @@ public class PerlinNoiseMap : MonoBehaviour {
         CreateTileset();
         CreateTileGroups();
         GenerateMap();
+        RenderMap();
     }
 
     void CreateTileset() {
@@ -43,8 +45,11 @@ public class PerlinNoiseMap : MonoBehaviour {
 	    tileset.Add(0, prefab_Rock);
 	    tileset.Add(1, prefab_Dirt_Rock);
     	tileset.Add(2, prefab_Dirt);
-    	tileset.Add(3, prefab_Grass);
-        tileset.Add(4, prefab_Tree);
+    	tileset.Add(3, prefab_DirtyGrass);
+        tileset.Add(4, prefab_Grass);
+        tileset.Add(5, prefab_Grass);
+        tileset.Add(6, prefab_Tree);
+        tileset.Add(7, prefab_Tree);
     }
 
     void CreateTileGroups() {
@@ -78,9 +83,16 @@ public class PerlinNoiseMap : MonoBehaviour {
     		for(int y = 0; y < map_height; y++) {
     			int tile_id = GetIdUsingPerlin(x, y);
     			noise_grid[x].Add(tile_id);
-    			CreateTile(tile_id, x, y);
     		}
     	}
+    }
+
+    void RenderMap() {
+	    for(int x = 0; x < map_width; x++) {
+		    for(int y = 0; y < map_height; y++) {
+			    CreateTile(noise_grid[x][y], x, y);
+		    }
+	    }
     }
 
     int GetIdUsingPerlin(int x, int y) {
