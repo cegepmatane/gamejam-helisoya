@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TEST/HunterTest.unity
     guid: eadd61414eb095349b7186459e7da701
   - enabled: 1
+    path: Assets/Scenes/TEST/BigfootTest.unity
+    guid: dca28628dbd1cdb4285747a459c3b374
+  - enabled: 1
     path: Assets/Scenes/TEST/MapTest.unity
     guid: 46cb505bd3a1a057ba9e9b85ff1f8215
   m_configObjects: {}

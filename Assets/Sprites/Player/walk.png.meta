@@ -122,8 +122,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: walk_1
       rect:
         serializedVersion: 2
-        x: 313
+        x: 206
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: walk_2
       rect:
         serializedVersion: 2
-        x: 626
+        x: 412
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: walk_3
       rect:
         serializedVersion: 2
-        x: 939
+        x: 618
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: walk_4
       rect:
         serializedVersion: 2
-        x: 1252
+        x: 824
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: walk_5
       rect:
         serializedVersion: 2
-        x: 1565
+        x: 1030
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: walk_6
       rect:
         serializedVersion: 2
-        x: 1878
+        x: 1236
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,10 +267,10 @@ TextureImporter:
       name: walk_7
       rect:
         serializedVersion: 2
-        x: 2191
+        x: 1442
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,10 +288,10 @@ TextureImporter:
       name: walk_8
       rect:
         serializedVersion: 2
-        x: 2504
+        x: 1648
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,10 +309,10 @@ TextureImporter:
       name: walk_9
       rect:
         serializedVersion: 2
-        x: 2817
+        x: 1854
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -330,10 +330,10 @@ TextureImporter:
       name: walk_10
       rect:
         serializedVersion: 2
-        x: 3130
+        x: 2060
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,10 +351,10 @@ TextureImporter:
       name: walk_11
       rect:
         serializedVersion: 2
-        x: 3443
+        x: 2266
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,10 +372,10 @@ TextureImporter:
       name: walk_12
       rect:
         serializedVersion: 2
-        x: 3756
+        x: 2472
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -393,10 +393,10 @@ TextureImporter:
       name: walk_13
       rect:
         serializedVersion: 2
-        x: 4069
+        x: 2678
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -414,10 +414,10 @@ TextureImporter:
       name: walk_14
       rect:
         serializedVersion: 2
-        x: 4382
+        x: 2884
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -435,10 +435,10 @@ TextureImporter:
       name: walk_15
       rect:
         serializedVersion: 2
-        x: 4695
+        x: 3090
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -456,10 +456,10 @@ TextureImporter:
       name: walk_16
       rect:
         serializedVersion: 2
-        x: 5008
+        x: 3296
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -477,10 +477,10 @@ TextureImporter:
       name: walk_17
       rect:
         serializedVersion: 2
-        x: 5321
+        x: 3502
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -498,10 +498,10 @@ TextureImporter:
       name: walk_18
       rect:
         serializedVersion: 2
-        x: 5634
+        x: 3708
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -519,10 +519,10 @@ TextureImporter:
       name: walk_19
       rect:
         serializedVersion: 2
-        x: 5947
+        x: 3914
         y: 0
-        width: 313
-        height: 206
+        width: 206
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
