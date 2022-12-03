@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Mirror.Discovery;
+using Unity.VisualScripting;
 
 public class HunterMovement : NetworkBehaviour
 {
@@ -27,12 +28,13 @@ public class HunterMovement : NetworkBehaviour
     [SerializeField] private NetworkAnimator feetAnimator;
     [SerializeField] private NetworkAnimator bodyAnimator;
 
+
     Vector3 move;
 
     [Header("Stun")]
     [SerializeField] private float maxStunTime;
     [HideInInspector] public bool stuned;
-
+    [SerializeField] private SpriteRenderer bodyRenderer;
 
     public static HunterMovement localPlayer;
 
@@ -59,6 +61,7 @@ public class HunterMovement : NetworkBehaviour
             {
                 stuned = false;
                 move = Vector3.zero;
+                CmdColor(Color.white);
             }
             return;
         }
@@ -112,15 +115,40 @@ public class HunterMovement : NetworkBehaviour
 
     }
 
+    [Command]
+    public void CmdColor(Color col)
+    {
+        RpcColor(col);
+    }
+
+    [ClientRpc]
+    public void RpcColor(Color col)
+    {
+        bodyRenderer.color = col;
+    }
+
+
+    [Command(requiresAuthority = false)]
     public void Stun(Vector3 newMove)
     {
+        RpcStun(newMove);
+    }
+
+    [ClientRpc]
+    public void RpcStun(Vector3 newMove)
+    {
         if (stuned) return;
+
+        bodyRenderer.color = Color.red;
+        if (!isLocalPlayer) return;
+
         move = newMove;
         stuned = true;
         lastFire = Time.time;
         currentTimeToWait = maxStunTime;
         bodyAnimator.animator.SetBool("moving", false);
         feetAnimator.animator.SetBool("moving", false);
+
     }
 
     public void ChangeMagazine()
@@ -151,4 +179,18 @@ public class HunterMovement : NetworkBehaviour
         bullet.GetComponent<Bullet>().Init(vec);
     }
 
+    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+    }
+
+
+    public void AddAmmoFromBox(AmmoBox box)
+    {
+        totalAmmo += box.GetAmmo();
+        GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
+        NetworkServer.Destroy(box.gameObject);
+    }
 }

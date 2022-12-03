@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AmmoBox
-  m_Shader: {fileID: -6465566751694194690, guid: 7a7913605c7309446aeb8f0bbf120533, type: 3}
+  m_Name: Player
+  m_Shader: {fileID: -6465566751694194690, guid: 6fffaf02b71a97d4b9112426bae7579d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -25,7 +25,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7202f2dff352788418464968c1949f04, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2f6f7b68d689f5149b0059598d8c1f3c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -51,10 +51,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Outline_Thickness: 0
+    - _Flash: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _FlashColor: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 2.8862746, g: 11.984314, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
