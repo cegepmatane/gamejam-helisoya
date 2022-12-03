@@ -13,19 +13,16 @@ public class BigfootController : NetworkBehaviour
 
     [SerializeField] private float rotationSpeed;
 
-    public NetworkAnimator Animator; 
+    public NetworkAnimator Animator;
 
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
 
-    public HealthBarBF healthBar;
-
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
-
     }
+
 
 
     // Update is called once per frame
@@ -52,12 +49,12 @@ public class BigfootController : NetworkBehaviour
             print(currentHealth);
         }
 
-        
     }
 
     void Start()
     {
-        Animator.animator.SetBool("moving", true); 
+        GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
+        Animator.animator.SetBool("moving", true);
     }
 
 
@@ -83,7 +80,7 @@ public class BigfootController : NetworkBehaviour
     [ClientRpc]
     public void RCPUpdateHealthBar()
     {
-        healthBar.SetHealth(currentHealth);
+        GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
     }
 
 }

@@ -17,7 +17,10 @@ public class GameGUI : NetworkBehaviour
 
     public bool paused { get { return pauseMenu.activeInHierarchy; } }
 
-    void Start()
+    [Header("BigFoot")]
+    public HealthBarBF bfHealth;
+
+    void Awake()
     {
         instance = this;
     }
