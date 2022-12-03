@@ -106,7 +106,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   speed: 12
-  lifeTime: 10
+  lifeTime: 2
   damage: 1
 --- !u!95 &7711169232006596746
 Animator:

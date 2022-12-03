@@ -37,7 +37,7 @@ public class Bullet : NetworkBehaviour
     }
 
 
-    [Command(requiresAuthority = false)]
+
     public void DestroySelf()
     {
         NetworkServer.Destroy(gameObject);
