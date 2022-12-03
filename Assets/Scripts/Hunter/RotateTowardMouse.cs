@@ -5,11 +5,24 @@ using Mirror;
 
 public class RotateTowardMouse : MonoBehaviour
 {
+    [SerializeField] private float stunRotationSpeed;
     void Update()
     {
+
         if (GameGUI.instance.paused) return;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 perpendicular = transform.position - mousePos;
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, perpendicular);
+
+
+        if (HunterMovement.localPlayer.stuned)
+        {
+            Vector3 angles = transform.eulerAngles;
+            angles.z += stunRotationSpeed * Time.deltaTime;
+            transform.eulerAngles = angles;
+        }
+        else
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 perpendicular = transform.position - mousePos;
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, perpendicular);
+        }
     }
 }
