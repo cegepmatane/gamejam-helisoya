@@ -11,12 +11,11 @@ public class PerlinNoiseMap : MonoBehaviour {
 	[Space(3)]
 	[Header("Tiles Set")]
 	[Space(1)]
-	public List<GameObject> prefab_Grass = new List<GameObject>();
-	public List<GameObject> prefab_FloweredGrass = new List<GameObject>();
-	public List<GameObject> prefab_Tree = new List<GameObject>();
 	public List<GameObject> prefab_Rock = new List<GameObject>();
-	public List<GameObject> prefab_Pavement = new List<GameObject>();
-	public List<GameObject> prefab_PavementGrass = new List<GameObject>();
+	public List<GameObject> prefab_Dirt_Rock = new List<GameObject>();
+	public List<GameObject> prefab_Dirt = new List<GameObject>();
+	public List<GameObject> prefab_Grass = new List<GameObject>();
+	public List<GameObject> prefab_Tree = new List<GameObject>();
 	public List<GameObject> prefab_Wall = new List<GameObject>();
 	public GameObject prefab_default;
 
@@ -41,12 +40,11 @@ public class PerlinNoiseMap : MonoBehaviour {
     void CreateTileset() {
 	    // Liste de Game object pour avoir un truc randoms dan le tileset
 	    tileset = new Dictionary<int, List<GameObject>>();
-	    tileset.Add(0, prefab_Pavement);
-	    tileset.Add(1, prefab_PavementGrass);
-    	tileset.Add(2, prefab_Grass);
-    	tileset.Add(3, prefab_FloweredGrass);
+	    tileset.Add(0, prefab_Rock);
+	    tileset.Add(1, prefab_Dirt_Rock);
+    	tileset.Add(2, prefab_Dirt);
+    	tileset.Add(3, prefab_Grass);
         tileset.Add(4, prefab_Tree);
-        tileset.Add(5, prefab_Rock);
     }
 
     void CreateTileGroups() {
@@ -55,7 +53,7 @@ public class PerlinNoiseMap : MonoBehaviour {
 
     	tile_groups = new Dictionary<int, GameObject>();
     	foreach(KeyValuePair<int, List<GameObject>> prefab_pair in tileset) {
-    		GameObject tile_group = new GameObject(nameof(prefab_pair));
+    		GameObject tile_group = new GameObject("TileType");
     		tile_group.transform.parent = gameObject.transform;
     		tile_group.transform.localPosition = new Vector3(0, 0, 0);
     		tile_groups.Add(prefab_pair.Key, tile_group);
@@ -111,14 +109,23 @@ public class PerlinNoiseMap : MonoBehaviour {
         GameObject tile_prefab = prefab_default;
         GameObject tile_group = tile_groups[666];
         
+        int numberTile = 0;
         if (tileset[tile_id].Any() && !(x==0 || x== map_width-1 || y == 0 || y == map_height-1)) {
 	        int size = tileset[tile_id].Count;
-	        tile_prefab = tileset[tile_id][Random.Range(0, size)];
+	        if (size > 1) {
+		        numberTile = Random.Range(0, size);
+	        }
+	        tile_prefab = tileset[tile_id][numberTile];
 	        tile_group = tile_groups[tile_id];
         }
         else if ((x==0 || x== map_width-1 || y == 0 || y == map_height-1)) {
 	        int size = prefab_Wall.Count;
-	        tile_prefab = prefab_Wall[Random.Range(0, size)];
+	        if (size > 1) {
+		        numberTile = Random.Range(0, size);
+	        }
+	        if (prefab_Wall.Any()) {
+		        tile_prefab = prefab_Wall[numberTile];
+	        }
 	        tile_group = tile_groups[999];
         }
         
