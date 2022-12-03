@@ -160,7 +160,7 @@ MonoBehaviour:
   enableActiveDiscovery: 1
   ActiveDiscoveryInterval: 3
   BroadcastAddress: 
-  transport: {fileID: 0}
+  transport: {fileID: 1810279825}
   OnServerFound:
     m_PersistentCalls:
       m_Calls:
@@ -251,7 +251,7 @@ MonoBehaviour:
   autoConnectClientBuild: 0
   sendRate: 30
   offlineScene: Assets/Scenes/TitleScreen.unity
-  onlineScene: Assets/Scenes/TEST/HunterTest.unity
+  onlineScene: Assets/Scenes/TEST/BigfootTest.unity
   transport: {fileID: 1810279825}
   networkAddress: localhost
   maxConnections: 100
