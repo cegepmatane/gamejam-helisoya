@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Mirror.Discovery;
 
 public class HunterMovement : NetworkBehaviour
 {
@@ -43,6 +44,8 @@ public class HunterMovement : NetworkBehaviour
 
     void Update()
     {
+        if (GameGUI.instance.paused) return;
+
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         transform.position += move * speed * Time.deltaTime;
 

@@ -7,6 +7,7 @@ public class RotateTowardMouse : MonoBehaviour
 {
     void Update()
     {
+        if (GameGUI.instance.paused) return;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 perpendicular = transform.position - mousePos;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, perpendicular);
