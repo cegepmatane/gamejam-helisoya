@@ -54,6 +54,13 @@ public class HunterMovement : NetworkBehaviour
         stuned = false;
     }
 
+    void Start()
+    {
+        if (isServer)
+        {
+            transform.position = FindObjectOfType<NetworkStartPosition>().transform.position;
+        }
+    }
 
     void Update()
     {

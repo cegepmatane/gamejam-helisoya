@@ -198,8 +198,8 @@ MonoBehaviour:
   prefab_Tree:
   - {fileID: 5135231579585707407, guid: 05ede736ecff4d4d79064f5fc135a566, type: 3}
   prefab_Wall:
-  - {fileID: 2331120946917276357, guid: 43fcb9bd1da922b388b4dccecf35297d, type: 3}
-  prefab_default: {fileID: 5029271055260409550, guid: 049f5939f66a7b388adfbbbcd4e84150, type: 3}
+  - {fileID: 4561664249283590, guid: 89be89a91758bd9f5b0373e39eecec35, type: 3}
+  prefab_default: {fileID: 8373628895604743464, guid: 049f5939f66a7b388adfbbbcd4e84150, type: 3}
   prefab_AmmunitionCrate: {fileID: 6012355252179814776, guid: f90d583d50dea04459c388b4733a7d96, type: 3}
   map_width: 100
   map_height: 100
@@ -301,8 +301,8 @@ Camera:
   m_GameObject: {fileID: 1284649097}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -873,6 +873,14 @@ PrefabInstance:
     - target: {fileID: 1146067284107980185, guid: bb6b5c64724b17745a578a7a0312d1c2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6911990284698650523, guid: bb6b5c64724b17745a578a7a0312d1c2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -41.799988
+      objectReference: {fileID: 0}
+    - target: {fileID: 6911990284698650523, guid: bb6b5c64724b17745a578a7a0312d1c2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25.900024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb6b5c64724b17745a578a7a0312d1c2, type: 3}
