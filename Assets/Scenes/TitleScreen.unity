@@ -251,7 +251,7 @@ MonoBehaviour:
   autoConnectClientBuild: 0
   sendRate: 30
   offlineScene: Assets/Scenes/TitleScreen.unity
-  onlineScene: Assets/Scenes/TEST/HunterTest.unity
+  onlineScene: Assets/Scenes/TEST/BigfootTest.unity
   transport: {fileID: 1810279825}
   networkAddress: localhost
   maxConnections: 100

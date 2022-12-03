@@ -7,18 +7,23 @@ using UnityEngine;
 public class BigfootController : NetworkBehaviour
 {
 
-    //[SerializeField] Bullet bullet;
+    [SerializeField] Bullet bullet;
 
     [SerializeField] private float speed;
 
     [SerializeField] private float rotationSpeed;
 
+    public NetworkAnimator Animator; 
+
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
+
+    public HealthBarBF healthBar;
 
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
 
     }
 
@@ -43,9 +48,16 @@ public class BigfootController : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TakeDamage(20);
+            TakeDamage(10);
             print(currentHealth);
         }
+
+        
+    }
+
+    void Start()
+    {
+        Animator.animator.SetBool("moving", true); 
     }
 
 
@@ -54,7 +66,9 @@ public class BigfootController : NetworkBehaviour
     {
         currentHealth -= dammage;
 
-        HesDead();
+
+        RCPUpdateHealthBar();
+        //HesDead();
     }
 
     public void HesDead()
@@ -62,20 +76,14 @@ public class BigfootController : NetworkBehaviour
         if (currentHealth <= 0)
         {
             print("le bigfoot est mort");
+            NetworkServer.Destroy(gameObject);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    [ClientRpc]
+    public void RCPUpdateHealthBar()
     {
-
-
-        // if (Input.GetKeyDown(KeyCode.P))
-        //{
-        Debug.LogWarning("collision ennemi");
-
-        TakeDamage(20);
-        //}
+        healthBar.SetHealth(currentHealth);
     }
-
 
 }

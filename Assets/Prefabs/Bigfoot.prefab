@@ -136,10 +136,13 @@ MonoBehaviour:
   syncDirection: 1
   syncMode: 0
   syncInterval: 0.1
+  bullet: {fileID: 0}
   speed: 0
   rotationSpeed: 0
+  Animator: {fileID: 0}
   maxHealth: 50
   currentHealth: 0
+  healthBar: {fileID: 0}
 --- !u!114 &2338397468704162811
 MonoBehaviour:
   m_ObjectHideFlags: 0
