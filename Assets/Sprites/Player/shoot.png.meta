@@ -122,8 +122,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 312
-        height: 206
+        width: 206
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: shoot_1
       rect:
         serializedVersion: 2
-        x: 312
+        x: 206
         y: 0
-        width: 312
-        height: 206
+        width: 206
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: shoot_2
       rect:
         serializedVersion: 2
-        x: 624
+        x: 412
         y: 0
-        width: 312
-        height: 206
+        width: 206
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
