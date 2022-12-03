@@ -42,6 +42,18 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 94c164715072f4b7e953f5fe9f0ef30f, type: 3}
   - {fileID: 21300000, guid: e3a3ffa1fb7fff24b8c964eb12049499, type: 3}
   - {fileID: 21300000, guid: 52c5add260be41aeeb89264f56cb5fda, type: 3}
+  - {fileID: -1725235295, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: -630528442, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 1402513790, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 2119340435, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 2053694494, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: -411922681, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 703428005, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: -1774731998, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: -1704657669, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 658735401, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 2131674131, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
+  - {fileID: 1271158287, guid: 318e2243e694b88f79d2d3874f67e681, type: 3}
   - {fileID: 21300000, guid: c29351571a609258c99c079ec25d1987, type: 3}
   - {fileID: 21300000, guid: 1ff0c3388e325da91b6c20cb16df93b8, type: 3}
   - {fileID: 21300000, guid: 7d9889f9b10ca36be93c4be661a08d7e, type: 3}
@@ -53,6 +65,18 @@ SpriteAtlas:
   - Grass_normal
   - Wall
   - Rock_noBG
+  - Dirt_Grass_TileSet_10
+  - Dirt_Grass_TileSet_11
+  - Dirt_Grass_TileSet_9
+  - Dirt_Grass_TileSet_8
+  - Dirt_Grass_TileSet_7
+  - Dirt_Grass_TileSet_6
+  - Dirt_Grass_TileSet_5
+  - Dirt_Grass_TileSet_4
+  - Dirt_Grass_TileSet_3
+  - Dirt_Grass_TileSet_2
+  - Dirt_Grass_TileSet_1
+  - Dirt_Grass_TileSet_0
   - tree
   - tree_noBG
   - dirt_desatured_rocks
