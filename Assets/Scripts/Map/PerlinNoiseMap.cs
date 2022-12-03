@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using Mirror;
+using Random = UnityEngine.Random;
 
 public class PerlinNoiseMap : NetworkBehaviour {
 	
@@ -71,7 +73,8 @@ public class PerlinNoiseMap : NetworkBehaviour {
     void GenerateMap() {
     	/** Generate a 2D grid using the Perlin noise fuction, storing it as
     		both raw ID values and tile gameobjects **/
-
+        x_offset = Random.Range(-999999, 999999);
+        y_offset = Random.Range(-999999, 999999);
     	for(int x = 0; x < map_width; x++) {
     		noise_grid.Add(new List<int>());
     		for(int y = 0; y < map_height; y++) {
@@ -147,6 +150,16 @@ public class PerlinNoiseMap : NetworkBehaviour {
 	    return noise_grid;
     }
 
+    private void Start() {
+	    CreateTileset();
+	    CreateTileGroups();
+	    if (isServer) {
+		    GenerateMap();
+	    }
+	    RenderMap();
+    }
+
+    /*
     public override void OnStartServer() {
 	    CreateTileset();
 	    CreateTileGroups();
@@ -158,4 +171,5 @@ public class PerlinNoiseMap : NetworkBehaviour {
 	    CreateTileGroups();
 	    RenderMap();
     }
+    */
 }
