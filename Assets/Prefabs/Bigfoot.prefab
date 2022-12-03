@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 2338397468704162810}
   m_Layer: 0
   m_Name: Bigfoot
-  m_TagString: Untagged
+  m_TagString: BigFoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +142,6 @@ MonoBehaviour:
   Animator: {fileID: 0}
   maxHealth: 50
   currentHealth: 0
-  healthBar: {fileID: 0}
 --- !u!114 &2338397468704162811
 MonoBehaviour:
   m_ObjectHideFlags: 0
