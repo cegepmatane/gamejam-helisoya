@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using Mirror;
 
-public class PerlinNoiseMap : MonoBehaviour {
+public class PerlinNoiseMap : NetworkBehaviour {
 	
 	Dictionary<int, List<GameObject>> tileset;
 	Dictionary<int, GameObject> tile_groups;
@@ -23,7 +24,7 @@ public class PerlinNoiseMap : MonoBehaviour {
 	int map_width = 100;
 	int map_height = 100;
 
-	List<List<int>> noise_grid = new List<List<int>>();
+	SyncList<List<int>> noise_grid = new SyncList<List<int>>();
 	List<List<GameObject>> tile_grid = new List<List<GameObject>>();
 
 	// recommend 4 to 20
@@ -31,13 +32,7 @@ public class PerlinNoiseMap : MonoBehaviour {
 
 	int x_offset = 0; // <- +>
 	int y_offset = 0; // v- +^
-
-    void Start() {
-        CreateTileset();
-        CreateTileGroups();
-        GenerateMap();
-        RenderMap();
-    }
+	
 
     void CreateTileset() {
 	    // Liste de Game object pour avoir un truc randoms dan le tileset
@@ -79,7 +74,6 @@ public class PerlinNoiseMap : MonoBehaviour {
 
     	for(int x = 0; x < map_width; x++) {
     		noise_grid.Add(new List<int>());
-    		tile_grid.Add(new List<GameObject>());
     		for(int y = 0; y < map_height; y++) {
     			int tile_id = GetIdUsingPerlin(x, y);
     			noise_grid[x].Add(tile_id);
@@ -89,6 +83,7 @@ public class PerlinNoiseMap : MonoBehaviour {
 
     void RenderMap() {
 	    for(int x = 0; x < map_width; x++) {
+		    tile_grid.Add(new List<GameObject>());
 		    for(int y = 0; y < map_height; y++) {
 			    CreateTile(noise_grid[x][y], x, y);
 		    }
@@ -148,7 +143,19 @@ public class PerlinNoiseMap : MonoBehaviour {
         
     }
 
-    public List<List<int>> getNoiseGrid() {
+    public SyncList<List<int>> getNoiseGrid() {
 	    return noise_grid;
+    }
+
+    public override void OnStartServer() {
+	    CreateTileset();
+	    CreateTileGroups();
+	    GenerateMap();
+    }
+
+    public override void OnStartClient() {
+	    CreateTileset();
+	    CreateTileGroups();
+	    RenderMap();
     }
 }
