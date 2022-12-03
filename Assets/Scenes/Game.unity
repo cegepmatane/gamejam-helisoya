@@ -200,6 +200,7 @@ MonoBehaviour:
   prefab_Wall:
   - {fileID: 2331120946917276357, guid: 43fcb9bd1da922b388b4dccecf35297d, type: 3}
   prefab_default: {fileID: 5029271055260409550, guid: 049f5939f66a7b388adfbbbcd4e84150, type: 3}
+  prefab_AmmunitionCrate: {fileID: 6012355252179814776, guid: f90d583d50dea04459c388b4733a7d96, type: 3}
   map_width: 100
   map_height: 100
 --- !u!4 &1006266265
@@ -322,7 +323,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

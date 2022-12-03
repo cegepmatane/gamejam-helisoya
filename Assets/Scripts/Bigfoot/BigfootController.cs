@@ -65,7 +65,16 @@ public class BigfootController : NetworkBehaviour
 
 
         RCPUpdateHealthBar();
-        //HesDead();
+        if (currentHealth <= 0)
+        {
+            RpcTriggerEnd();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcTriggerEnd()
+    {
+        GameGUI.instance.ShowEndScreen();
     }
 
     public void HesDead()

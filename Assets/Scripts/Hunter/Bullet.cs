@@ -15,9 +15,12 @@ public class Bullet : NetworkBehaviour
 
     private float timeOfCreation;
 
+    private HunterMovement parent;
 
-    public void Init(Vector3 vector)
+
+    public void Init(Vector3 vector, HunterMovement hunter)
     {
+        parent = hunter;
         timeOfCreation = Time.time;
         movementVector = vector;
         transform.right = (transform.position + vector) - transform.position;
@@ -29,6 +32,10 @@ public class Bullet : NetworkBehaviour
     {
         if (Time.time - timeOfCreation > lifeTime)
         {
+            if (parent == HunterMovement.localPlayer)
+            {
+                parent.badShot++;
+            }
             DestroySelf();
             return;
         }
@@ -48,12 +55,20 @@ public class Bullet : NetworkBehaviour
     {
         if (col.tag.Equals("BigFoot"))
         {
+            if (parent == HunterMovement.localPlayer)
+            {
+                parent.goodShot++;
+            }
             col.GetComponent<BigfootController>().TakeDamage(damage);
             DestroySelf();
         }
         else if (col.tag.Equals("Player"))
         {
             if (col.GetComponent<HunterMovement>().isLocalPlayer) return;
+            if (parent == HunterMovement.localPlayer)
+            {
+                parent.friendlyShot++;
+            }
             Vector3 vec = col.transform.position - transform.position;
             vec.Normalize();
             col.GetComponent<HunterMovement>().Stun(vec);

@@ -38,6 +38,11 @@ public class HunterMovement : NetworkBehaviour
 
     public static HunterMovement localPlayer;
 
+    [Header("Stats")]
+    public int badShot;
+    public int goodShot;
+    public int friendlyShot;
+
     public override void OnStartClient()
     {
         if (isLocalPlayer)
@@ -76,7 +81,7 @@ public class HunterMovement : NetworkBehaviour
         if (move != Vector3.zero)
         {
             Quaternion toRotate = Quaternion.LookRotation(Vector3.forward, move);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, 720 * Time.deltaTime);
+            feets.rotation = Quaternion.RotateTowards(feets.rotation, toRotate, 720 * Time.deltaTime);
         }
 
         feetAnimator.animator.SetBool("moving", move != Vector3.zero);
@@ -176,10 +181,10 @@ public class HunterMovement : NetworkBehaviour
         Vector3 vec = pos - bullet.transform.position;
         vec.Normalize();
 
-        bullet.GetComponent<Bullet>().Init(vec);
+        bullet.GetComponent<Bullet>().Init(vec, this);
     }
 
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -193,4 +198,6 @@ public class HunterMovement : NetworkBehaviour
         GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
         NetworkServer.Destroy(box.gameObject);
     }
+
+
 }
