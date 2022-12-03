@@ -24,6 +24,7 @@ public class PerlinNoiseMap : NetworkBehaviour {
     public List<GameObject> prefab_Tree = new List<GameObject>();
     public List<GameObject> prefab_Wall = new List<GameObject>();
     public GameObject prefab_default;
+    public GameObject prefab_AmmunitionCrate;
 
     public int map_width = 100;
     public int map_height = 100;
@@ -99,6 +100,9 @@ public class PerlinNoiseMap : NetworkBehaviour {
 	    GameObject SpawnPoints = new GameObject("SpawnPoints");
 	    SpawnPoints.transform.parent = gameObject.transform;
 	    SpawnPoints.transform.localPosition = new Vector3(0, 0, 0);
+	    GameObject AmmunitionsCrates = new GameObject("AmmunitionsCrates");
+	    AmmunitionsCrates.transform.parent = gameObject.transform;
+	    AmmunitionsCrates.transform.localPosition = new Vector3(0, 0, 0);
 	    for(int x = 0; x < map_width; x++) {
 		    for(int y = 0; y < map_height; y++) {
 			    // wall
@@ -106,10 +110,19 @@ public class PerlinNoiseMap : NetworkBehaviour {
 				    noise_grid[x][y] = 10;
 			    }
 			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6 && Random.Range(0, 100) == 0) {
-				    GameObject spawnPoint = Instantiate(new GameObject(), SpawnPoints.transform);
+				    GameObject spawnPoint = new GameObject();
+				    spawnPoint.transform.parent = SpawnPoints.transform;
 				    spawnPoint.name = string.Format("spawnPoint_x{0}_y{1}", x, y);
 				    spawnPoint.transform.localPosition = new Vector3(x, y, 0);
 				    spawnPoint.AddComponent<NetworkStartPosition>();
+			    }
+			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6 && Random.Range(0, 200) == 0) {
+				    GameObject AmmoSpawnPoint = new GameObject();
+				    AmmoSpawnPoint.name = string.Format("AmmoSpawnPoint_x{0}_y{1}", x, y);
+				    AmmoSpawnPoint.transform.localPosition = new Vector3(x, y, -1);
+				    AmmoSpawnPoint.transform.parent = AmmunitionsCrates.transform;
+				    GameObject AmmunitionsCrate = Instantiate(prefab_AmmunitionCrate, AmmoSpawnPoint.transform);
+				    AmmunitionsCrate.name = string.Format("Ammunition_x{0}_y{1}", x, y);
 			    }
 		    }
 	    }
