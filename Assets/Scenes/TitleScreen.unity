@@ -394,7 +394,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 427216223}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.8571733
+  m_Size: 0.8571732
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   serverBroadcastListenPort: 47777
   enableActiveDiscovery: 1
   ActiveDiscoveryInterval: 3
-  BroadcastAddress: 
+  BroadcastAddress: 10.1.106.255
   transport: {fileID: 1810279825}
   OnServerFound:
     m_PersistentCalls:
