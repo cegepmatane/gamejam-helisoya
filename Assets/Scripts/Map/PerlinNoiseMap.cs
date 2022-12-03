@@ -63,7 +63,7 @@ public class PerlinNoiseMap : NetworkBehaviour {
         tile_groups = new Dictionary<int, GameObject>();
         foreach (KeyValuePair<int, List<GameObject>> prefab_pair in tileset)
         {
-            GameObject tile_group = new GameObject("TileType");
+            GameObject tile_group = new GameObject("TileType"+prefab_pair.Key);
             tile_group.transform.parent = gameObject.transform;
             tile_group.transform.localPosition = new Vector3(0, 0, 0);
             tile_groups.Add(prefab_pair.Key, tile_group);
@@ -96,18 +96,26 @@ public class PerlinNoiseMap : NetworkBehaviour {
     }
 
     void potGenerateTreatment() {
+	    GameObject SpawnPoints = new GameObject("SpawnPoints");
+	    SpawnPoints.transform.parent = gameObject.transform;
+	    SpawnPoints.transform.localPosition = new Vector3(0, 0, 0);
 	    for(int x = 0; x < map_width; x++) {
 		    for(int y = 0; y < map_height; y++) {
 			    // wall
 			    if (x == 0 || x == map_width-1 || y == 0 || y == map_height-1) {
 				    noise_grid[x][y] = 10;
 			    }
-			    
+			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6 && Random.Range(0, 100) == 0) {
+				    GameObject spawnPoint = Instantiate(new GameObject(), SpawnPoints.transform);
+				    spawnPoint.name = string.Format("spawnPoint_x{0}_y{1}", x, y);
+				    spawnPoint.transform.localPosition = new Vector3(x, y, 0);
+				    spawnPoint.AddComponent<NetworkStartPosition>();
+			    }
 		    }
 	    }
     }
     
-    // Todo Post treatment map 
+    
 
     void RenderMap()
     {
@@ -152,7 +160,7 @@ public class PerlinNoiseMap : NetworkBehaviour {
 
         int numberTile = 0;
         if (tile_id != 10 && tileset[tile_id].Any()) {
-	        if (tile_id == 3 || tile_id == 4) {
+	        if (tile_id == 3) {
 		        int[] tabcornerId = new int[9];
 		        //[ 6 , 7 , 8 ]
 		        //[ 3 , 4 , 5 ]		Tab idCorner  3 = dirtgrass    2 = dirt
