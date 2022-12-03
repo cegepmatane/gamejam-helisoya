@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Mirror.Discovery;
+using Unity.VisualScripting;
 
 public class HunterMovement : NetworkBehaviour
 {
@@ -26,6 +27,7 @@ public class HunterMovement : NetworkBehaviour
     [SerializeField] private Transform feets;
     [SerializeField] private NetworkAnimator feetAnimator;
     [SerializeField] private NetworkAnimator bodyAnimator;
+
 
     Vector3 move;
 
@@ -177,4 +179,18 @@ public class HunterMovement : NetworkBehaviour
         bullet.GetComponent<Bullet>().Init(vec);
     }
 
+    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+    }
+
+
+    public void AddAmmoFromBox(AmmoBox box)
+    {
+        totalAmmo += box.GetAmmo();
+        GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
+        NetworkServer.Destroy(box.gameObject);
+    }
 }
