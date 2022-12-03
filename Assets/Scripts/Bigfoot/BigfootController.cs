@@ -7,11 +7,13 @@ using UnityEngine;
 public class BigfootController : NetworkBehaviour
 {
 
-    //[SerializeField] Bullet bullet;
+    [SerializeField] Bullet bullet;
 
     [SerializeField] private float speed;
 
     [SerializeField] private float rotationSpeed;
+
+    public NetworkAnimator Animator;
 
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
@@ -19,8 +21,8 @@ public class BigfootController : NetworkBehaviour
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-        
     }
+
 
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class BigfootController : NetworkBehaviour
 
         transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
 
-        if(movementDirection != Vector2.zero)
+        if (movementDirection != Vector2.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
@@ -43,18 +45,27 @@ public class BigfootController : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TakeDamage(20);
+            TakeDamage(10);
             print(currentHealth);
         }
+
     }
 
-    
-    [Command(requiresAuthority =false)]
+    void Start()
+    {
+        GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
+        Animator.animator.SetBool("moving", true);
+    }
+
+
+    [Command(requiresAuthority = false)]
     public void TakeDamage(int dammage)
     {
         currentHealth -= dammage;
 
-        HesDead();
+
+        RCPUpdateHealthBar();
+        //HesDead();
     }
 
     public void HesDead()
@@ -62,20 +73,14 @@ public class BigfootController : NetworkBehaviour
         if (currentHealth <= 0)
         {
             print("le bigfoot est mort");
+            NetworkServer.Destroy(gameObject);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    [ClientRpc]
+    public void RCPUpdateHealthBar()
     {
-
-        
-       // if (Input.GetKeyDown(KeyCode.P))
-        //{
-            Debug.LogWarning("collision ennemi");
-
-            TakeDamage(20);
-        //}
+        GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
     }
-
 
 }
