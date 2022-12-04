@@ -15,6 +15,9 @@ public class GameGUI : NetworkBehaviour
 
     [Header("Pause Menu")]
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject normalPauseScreen;
+    [SerializeField] private GameObject helpPauseScreen;
+    [SerializeField] private Transform pauseScreenPlayersRoot;
     public bool paused { get { return pauseMenu.activeInHierarchy || endRoot.activeInHierarchy; } }
 
     [Header("BigFoot")]
