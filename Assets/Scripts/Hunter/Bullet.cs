@@ -40,7 +40,7 @@ public class Bullet : NetworkBehaviour
         {
             if (parent == HunterMovement.localPlayer)
             {
-                parent.badShot++;
+                parent.AddMissedShot();
             }
             DestroySelf();
             return;
@@ -69,7 +69,7 @@ public class Bullet : NetworkBehaviour
         {
             if (parent == HunterMovement.localPlayer)
             {
-                parent.goodShot++;
+                parent.AddGoodShot();
             }
             col.GetComponent<BigfootController>().TakeDamage(damage);
             DestroySelf();
@@ -79,7 +79,7 @@ public class Bullet : NetworkBehaviour
             if (col.GetComponent<HunterMovement>().isLocalPlayer) return;
             if (parent == HunterMovement.localPlayer)
             {
-                parent.friendlyShot++;
+                parent.AddFriendlyShoot();
             }
             Vector3 vec = col.transform.position - transform.position;
             vec.Normalize();
