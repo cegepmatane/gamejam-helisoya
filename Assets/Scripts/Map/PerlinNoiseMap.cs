@@ -123,11 +123,11 @@ public class PerlinNoiseMap : NetworkBehaviour
                     {
                         GameObject AmmoSpawnPoint = new GameObject();
                         AmmoSpawnPoint.name = string.Format("AmmoSpawnPoint_x{0}_y{1}", x, y);
-                        AmmoSpawnPoint.transform.localPosition = new Vector3(x, y, -1);
+                        AmmoSpawnPoint.transform.position = new Vector3(x, y, -1);
                         AmmoSpawnPoint.transform.parent = AmmunitionsCrates.transform;
                         GameObject AmmunitionsCrate = Instantiate(prefab_AmmunitionCrate, AmmoSpawnPoint.transform);
                         AmmunitionsCrate.name = string.Format("Ammunition_x{0}_y{1}", x, y);
-                        AmmunitionsCrate.transform.localPosition = new Vector3(0, 0, -1);
+                        AmmunitionsCrate.transform.localPosition = new Vector3(x, y, -1);
                         NetworkServer.Spawn(AmmunitionsCrate);
                     }
                     // BigFoot targets
