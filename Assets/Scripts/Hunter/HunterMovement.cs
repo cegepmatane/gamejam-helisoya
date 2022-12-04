@@ -43,6 +43,10 @@ public class HunterMovement : NetworkBehaviour
     public int goodShot;
     public int friendlyShot;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource walkSound;
+    [SerializeField] private AudioSource generalSound;
+
     public override void OnStartClient()
     {
         if (isLocalPlayer)
@@ -93,6 +97,7 @@ public class HunterMovement : NetworkBehaviour
 
         feetAnimator.animator.SetBool("moving", move != Vector3.zero);
         bodyAnimator.animator.SetBool("moving", move != Vector3.zero);
+        CmdSetWalkSound(move != Vector3.zero);
 
 
         if (Time.time - lastFire >= currentTimeToWait)
@@ -111,6 +116,7 @@ public class HunterMovement : NetworkBehaviour
                 currentTimeToWait = fireCooldownTime;
                 bodyAnimator.SetTrigger("shoot");
 
+                CmdAddSound("Gunshot");
                 currentAmmo--;
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 pos.z = 0;
@@ -126,6 +132,9 @@ public class HunterMovement : NetworkBehaviour
         }
 
     }
+
+
+
 
     [Command]
     public void CmdColor(Color col)
@@ -150,6 +159,7 @@ public class HunterMovement : NetworkBehaviour
     public void RpcStun(Vector3 newMove)
     {
         if (stuned) return;
+        CmdAddSound("PlayerHurt");
 
         bodyRenderer.color = Color.red;
         if (!isLocalPlayer) return;
@@ -191,11 +201,42 @@ public class HunterMovement : NetworkBehaviour
         bullet.GetComponent<Bullet>().Init(vec, this);
     }
 
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    [Command]
+    public void CmdSetWalkSound(bool value)
     {
+        RpcSetWalkSound(value);
+    }
 
+    [ClientRpc]
+    public void RpcSetWalkSound(bool value)
+    {
+        walkSound.enabled = value;
+    }
+
+
+    [Command]
+    public void CmdAddSound(string filename)
+    {
+        RpcAddSound(filename);
+    }
+
+    [ClientRpc]
+    public void RpcAddSound(string filename)
+    {
+        AudioClip clip = Resources.Load<AudioClip>("Audio/SFX/" + filename);
+        if (clip != null)
+            generalSound.PlayOneShot(clip);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("BigFoot"))
+        {
+            Vector3 vec = transform.position - collision.transform.position;
+            vec.Normalize();
+            Stun(vec);
+        }
     }
 
 

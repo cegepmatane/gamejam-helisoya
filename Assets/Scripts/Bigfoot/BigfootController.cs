@@ -5,22 +5,25 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-public class BigfootController : NetworkBehaviour {
-    
+public class BigfootController : NetworkBehaviour
+{
+
     // Mouvment Var
     private PathFinder pathfinder;
     public PerlinNoiseMap map;
     private Path m_Path;
     [SerializeField] private float speed = 5f;
     private Vector3 MouvmentVector;
-    
+
     // Health var
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
-    
+
     // Other var
     public NetworkAnimator Animator;
-    
+
+    public AudioSource generalAudio;
+
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
@@ -29,7 +32,7 @@ public class BigfootController : NetworkBehaviour {
         pathfinder.setMap(map);
         pathfinder.setSpeed(speed);
     }
-    
+
 
     // Update is called once per frame
     void Update()
@@ -57,6 +60,7 @@ public class BigfootController : NetworkBehaviour {
     [Command(requiresAuthority = false)]
     public void TakeDamage(int dammage)
     {
+        RpcAddSound("BigfootHurt");
         currentHealth -= dammage;
 
 
@@ -86,6 +90,23 @@ public class BigfootController : NetworkBehaviour {
     public void RCPUpdateHealthBar()
     {
         GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
+    }
+
+
+
+
+    [Command]
+    public void CmdAddSound(string filename)
+    {
+        RpcAddSound(filename);
+    }
+
+    [ClientRpc]
+    public void RpcAddSound(string filename)
+    {
+        AudioClip clip = Resources.Load<AudioClip>("Audio/SFX/" + filename);
+        if (clip != null)
+            generalAudio.PlayOneShot(clip);
     }
 
 }
