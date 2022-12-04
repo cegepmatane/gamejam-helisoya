@@ -40,9 +40,9 @@ public class HunterMovement : NetworkBehaviour
     public static HunterMovement localPlayer;
 
     [Header("Stats")]
-    public int badShot;
-    public int goodShot;
-    public int friendlyShot;
+    [SyncVar] public int badShot;
+    [SyncVar] public int goodShot;
+    [SyncVar] public int friendlyShot;
 
     [Header("Audio")]
     [SerializeField] private AudioSource walkSound;
@@ -281,4 +281,34 @@ public class HunterMovement : NetworkBehaviour
     }
 
 
+
+    [Command(requiresAuthority = false)]
+    public void AddFriendlyShoot()
+    {
+        friendlyShot++;
+        RefreshValues(goodShot, badShot, friendlyShot);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void AddMissedShot()
+    {
+        badShot++;
+        RefreshValues(goodShot, badShot, friendlyShot);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void AddGoodShot()
+    {
+        goodShot++;
+        RefreshValues(goodShot, badShot, friendlyShot);
+    }
+
+
+    [ClientRpc]
+    public void RefreshValues(int good, int bad, int friendly)
+    {
+        friendlyShot = friendly;
+        goodShot = good;
+        badShot = bad;
+    }
 }
