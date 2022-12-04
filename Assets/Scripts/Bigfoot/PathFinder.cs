@@ -20,6 +20,7 @@ public class PathFinder : MonoBehaviour {
     private Vector3 movementVector;
     // LayerMask seems to be useless since RayCast ignore colider if tey started inside it. 
     //private LayerMask layerMask = ~(1 << 1);
+    private RaycastHit raycastHitDirection;
 
     public void setMap(PerlinNoiseMap map) {
         this.map = map;
@@ -33,6 +34,9 @@ public class PathFinder : MonoBehaviour {
     public Vector3 getMouvmentVector(Vector3 _currentPos) {
         if (Mathf.Abs((Targets[currentTarget] - _currentPos).magnitude) <= 0.1f) {
             currentTarget = (currentTarget + 1) % Targets.Count;
+            if (currentTarget == 0) {
+                shuffleTargets();
+            }
         }
         
         // ----- def directorVector ----- //
@@ -42,8 +46,6 @@ public class PathFinder : MonoBehaviour {
         
         
         // Trace Ray
-        RaycastHit raycastHitDirection;
-        // Todo Gizmo Editor
 
         // ----- check collistion ----- //
         if (Physics.Raycast(_currentPos, vectorDirector, out raycastHitDirection, speed)) {
@@ -87,5 +89,38 @@ public class PathFinder : MonoBehaviour {
         lastVectorDirector = vectorDirector;
         
         return movementVector;
+    }
+
+    private void shuffleTargets() {
+        for (int i = 0; i < Targets.Count; i++) {
+            Vector3 _temp = Targets[i];
+            int randomIndex = Random.Range(i, Targets.Count);
+            Targets[i] = Targets[randomIndex];
+            Targets[randomIndex] = _temp;
+        }
+
+
+    }
+    public void OnDrawGizmosSelected() {
+        
+        // Draw Full path
+        Vector3 _tempVector3 = Targets[0];
+        Gizmos.color = Color.white;
+        foreach (Vector3 Target in Targets) {
+            Gizmos.DrawLine(_tempVector3, Target);
+            _tempVector3 = Target;
+        }
+        // From last to first target
+        Gizmos.DrawLine(_tempVector3, Targets[0]);
+        
+        
+        if (Physics.Raycast(transform.position, vectorDirector, out raycastHitDirection, speed)) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + (vectorDirector*raycastHitDirection.distance));
+        }
+        else {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + (vectorDirector*speed));
+        }
     }
 }

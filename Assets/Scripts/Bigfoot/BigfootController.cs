@@ -27,10 +27,10 @@ public class BigfootController : NetworkBehaviour
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-        transform.position = map.getBigFootSpawn();
         pathfinder = GetComponentInChildren<PathFinder>();
         pathfinder.setMap(map);
         pathfinder.setSpeed(speed);
+        transform.position = map.getBigFootSpawn();
     }
 
 
@@ -46,6 +46,8 @@ public class BigfootController : NetworkBehaviour
 
         MouvmentVector = pathfinder.getMouvmentVector(transform.position);
 
+        // Todo use force and debug colision  And a Gizmo editor is available
+        
         transform.position = MouvmentVector + transform.position;
 
     }
