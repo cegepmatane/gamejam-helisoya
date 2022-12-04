@@ -6,6 +6,8 @@ using Mirror.Discovery;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using UnityEngine.UI;
+using TMPro;
 
 public class ServerList : MonoBehaviour
 {
@@ -15,12 +17,45 @@ public class ServerList : MonoBehaviour
 
     [SerializeField] private Transform serverParent;
     [SerializeField] private GameObject prefabServer;
+
+    [Header("Settings")]
+    [SerializeField] private GameObject normalTab;
+    [SerializeField] private GameObject settingsTab;
+    [SerializeField] private TMP_InputField ipInput;
+    [SerializeField] private TMP_InputField playerNameInput;
+
     void Start()
     {
-        string[] ipSplit = GetLocalIPv4().Split(".");
-        string ipCorrect = ipSplit[0] + "." + ipSplit[1] + "." + ipSplit[2] + ".255";
-        networkDiscovery.BroadcastAddress = ipCorrect;
+
+
+        if (networkDiscovery.BroadcastAddress == "" || networkDiscovery.BroadcastAddress == null)
+        {
+            string[] ipSplit = GetLocalIPv4().Split(".");
+            string ipCorrect = ipSplit[0] + "." + ipSplit[1] + "." + ipSplit[2] + ".255";
+            networkDiscovery.BroadcastAddress = ipCorrect;
+        }
+        ipInput.SetTextWithoutNotify(networkDiscovery.BroadcastAddress);
+
+        if (!PlayerPrefs.HasKey("playerName"))
+        {
+            PlayerPrefs.SetString("playerName", "Hunter");
+        }
+        playerNameInput.SetTextWithoutNotify(PlayerPrefs.GetString("playerName"));
+
         SearchServers();
+    }
+
+
+    public void SetSettingsOpen(bool value)
+    {
+        normalTab.SetActive(!value);
+        settingsTab.SetActive(value);
+    }
+
+    public void AcceptSettingsChanges()
+    {
+        PlayerPrefs.SetString("playerName", playerNameInput.text);
+        networkDiscovery.BroadcastAddress = ipInput.text;
     }
 
 

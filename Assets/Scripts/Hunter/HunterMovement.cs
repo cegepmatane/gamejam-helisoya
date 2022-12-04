@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using Mirror.Discovery;
 using Unity.VisualScripting;
+using TMPro;
 
 public class HunterMovement : NetworkBehaviour
 {
@@ -47,16 +48,38 @@ public class HunterMovement : NetworkBehaviour
     [SerializeField] private AudioSource walkSound;
     [SerializeField] private AudioSource generalSound;
 
+
+
+    [Header("Multiplayer")]
+    [SyncVar] public string playerName;
+    [SerializeField] private TextMeshPro playerNameText;
+
     public override void OnStartClient()
     {
         if (isLocalPlayer)
         {
             localPlayer = this;
+            CmdSetPlayerName(PlayerPrefs.GetString("playerName"));
         }
         currentAmmo = maxAmmo;
         totalAmmo = 18;
         stuned = false;
     }
+
+
+    [Command]
+    public void CmdSetPlayerName(string newName)
+    {
+        playerName = newName;
+        RpcReloadPlayerName();
+    }
+
+    [ClientRpc]
+    public void RpcReloadPlayerName()
+    {
+        playerNameText.text = playerName;
+    }
+
 
     void Start()
     {
@@ -107,6 +130,7 @@ public class HunterMovement : NetworkBehaviour
                 lastFire = Time.time;
                 currentTimeToWait = reloadTime;
                 bodyAnimator.SetTrigger("reload");
+                CmdAddSound("reload");
                 ChangeMagazine();
                 GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
             }
@@ -244,6 +268,7 @@ public class HunterMovement : NetworkBehaviour
     {
         totalAmmo += box.GetAmmo();
         GameGUI.instance.UpdateAmmoText(currentAmmo, totalAmmo);
+        CmdAddSound("ammoPickup");
         NetworkServer.Destroy(box.gameObject);
     }
 
