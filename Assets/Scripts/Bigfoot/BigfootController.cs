@@ -73,8 +73,9 @@ public class BigfootController : NetworkBehaviour
 
 
     [Command(requiresAuthority = false)]
-    public void TakeDamage(int dammage)
-    {
+    public void TakeDamage(int dammage) {
+        pathfinder.hungry = true;
+        StartCoroutine(TimerHungry());
         RpcAddSound("BigfootHurt");
         currentHealth -= dammage;
 
@@ -90,6 +91,11 @@ public class BigfootController : NetworkBehaviour
         {
             RpcTriggerEnd();
         }
+    }
+
+    IEnumerator TimerHungry() {
+        yield return new WaitForSeconds(1f);
+        pathfinder.hungry = false;
     }
 
     [ClientRpc]
@@ -148,4 +154,15 @@ public class BigfootController : NetworkBehaviour
             generalAudio.PlayOneShot(clip);
     }
 
+    private void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.GetComponent<HunterMovement>() != null) {
+            pathfinder.addplayer(col.gameObject);
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.GetComponent<HunterMovement>() != null) {
+            pathfinder.removePlayer(col.gameObject);
+        }
+    }
 }

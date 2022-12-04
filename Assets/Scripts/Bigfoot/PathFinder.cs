@@ -24,6 +24,32 @@ public class PathFinder : MonoBehaviour
     // LayerMask seems to be useless since RayCast ignore colider if tey started inside it. 
     //private LayerMask layerMask = ~(1 << 1);
     private RaycastHit raycastHitDirection;
+    
+    // --- Player pos --- //
+    // status -> if true will attack player
+    public bool hungry;
+    // nearby players
+    private GameObject nearbyPlayer;
+
+    public void addplayer(GameObject player) {
+        if (nearbyPlayer != null) {
+            // chack which player is closer.
+            float _tempDistPlayer = (player.transform.position - transform.position).magnitude;
+            float _tempDistNearbyPlayer = (nearbyPlayer.transform.position - transform.position).magnitude;
+            if (_tempDistPlayer < _tempDistNearbyPlayer) {
+                nearbyPlayer = player;
+            }
+        }
+        else {
+            nearbyPlayer = player;
+        }
+    }
+
+    public void removePlayer(GameObject player) {
+        if (player == nearbyPlayer) {
+            nearbyPlayer = null;
+        }
+    }
 
     public void setMap(PerlinNoiseMap map)
     {
@@ -48,7 +74,14 @@ public class PathFinder : MonoBehaviour
         }
 
         // ----- def directorVector ----- //
-        vectorDirector = Targets[currentTarget] - _currentPos;
+        // if hungry & there is a nearby player us playr as target.
+        if (hungry && nearbyPlayer != null) {
+            vectorDirector = nearbyPlayer.transform.position - _currentPos;
+        }
+        // sinon continuer la route
+        else {
+            vectorDirector = Targets[currentTarget] - _currentPos;
+        }
         // get the vector normal of the direction
         vectorDirector = vectorDirector.normalized;
 

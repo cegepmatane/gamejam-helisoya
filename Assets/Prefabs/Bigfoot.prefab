@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 339345894798692478}
   - component: {fileID: 3379360795887504544}
   - component: {fileID: 3849249936366622625}
+  - component: {fileID: 5235191324891527049}
   m_Layer: 0
   m_Name: Bigfoot
   m_TagString: BigFoot
@@ -450,6 +451,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &5235191324891527049
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338397468704162808}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5.54
 --- !u!1 &2338397469080202397
 GameObject:
   m_ObjectHideFlags: 0
