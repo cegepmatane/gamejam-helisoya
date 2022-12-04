@@ -8,45 +8,31 @@ using Random = UnityEngine.Random;
 public class BigfootController : NetworkBehaviour
 {
 
-
-   // public Grid Grid;
-    public OldPathFinder pathfinder;
-    //public Transform[] Objectives;
-
+    // Mouvment Var
+    private PathFinder pathfinder;
     public Transform Spawn;
-    public Transform Objective;
-
     public PerlinNoiseMap map;
-    
-
     private Path m_Path;
-
-    [SerializeField] Bullet bullet;
-
     [SerializeField] private float speed;
+    private Vector3 MouvmentVector;
 
-    [SerializeField] private float rotationSpeed;
-
-    public NetworkAnimator Animator;
-
+    // Health var
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
 
-    public float Speed = 10f;
+    // Other var
+    public NetworkAnimator Animator;
 
-    private Vector3 chqngem;
-
-
+    public AudioSource generalAudio;
 
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-
         transform.position = Spawn.transform.position;
+        pathfinder = GetComponentInChildren<PathFinder>();
+        pathfinder.setMap(map);
     }
 
-    public float amplitude = 10f;          //Set in Inspector 
-    private Vector3 tempPos;
 
     // Update is called once per frame
     void Update()
@@ -58,11 +44,9 @@ public class BigfootController : NetworkBehaviour
             print(currentHealth);
         }
 
+        MouvmentVector = pathfinder.getMouvmentVector(transform.position);
 
-        tempPos.x = 7;
-        tempPos.y = amplitude * Mathf.Sin(speed * Time.time);
-        transform.localPosition = tempPos;
-
+        transform.position = MouvmentVector + transform.position;
 
     }
 
@@ -76,6 +60,7 @@ public class BigfootController : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void TakeDamage(int dammage)
     {
+        RpcAddSound("BigfootHurt");
         currentHealth -= dammage;
 
 
@@ -105,6 +90,23 @@ public class BigfootController : NetworkBehaviour
     public void RCPUpdateHealthBar()
     {
         GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
+    }
+
+
+
+
+    [Command]
+    public void CmdAddSound(string filename)
+    {
+        RpcAddSound(filename);
+    }
+
+    [ClientRpc]
+    public void RpcAddSound(string filename)
+    {
+        AudioClip clip = Resources.Load<AudioClip>("Audio/SFX/" + filename);
+        if (clip != null)
+            generalAudio.PlayOneShot(clip);
     }
 
 }
