@@ -133,7 +133,7 @@ public class HunterMovement : NetworkBehaviour
 
         if (Time.time - lastFire >= currentTimeToWait)
         {
-            if (Input.GetKeyDown(KeyCode.R) && totalAmmo > 0 && maxAmmo != currentAmmo)
+            if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.RightShift)) && totalAmmo > 0 && maxAmmo != currentAmmo)
             {
                 lastFire = Time.time;
                 currentTimeToWait = reloadTime;

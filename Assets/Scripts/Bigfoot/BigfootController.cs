@@ -13,7 +13,7 @@ public class BigfootController : NetworkBehaviour
     private DissolveEffect dissolve;
     public PerlinNoiseMap map;
     private Path m_Path;
-    [SerializeField] private float speed = 5f;
+    [SyncVar] public float speed = 5f;
     private Vector3 MouvmentVector;
 
     public bool isDead = false;
@@ -28,6 +28,9 @@ public class BigfootController : NetworkBehaviour
     public AudioSource generalAudio;
 
     [SerializeField] private Renderer[] renderers;
+
+    public Transform feets;
+    public GameObject kart;
 
     public void Init()
     {
@@ -50,14 +53,20 @@ public class BigfootController : NetworkBehaviour
 
         // Todo use force and debug colision  And a Gizmo editor is available
 
+        Quaternion toRotate = Quaternion.LookRotation(Vector3.forward, MouvmentVector);
+        feets.rotation = Quaternion.RotateTowards(feets.rotation, toRotate, 720 * Time.deltaTime);
         transform.position = MouvmentVector + transform.position;
-        
+
         // Todo Rotation
 
     }
 
     void Start()
     {
+        if (Random.Range(0, 100) <= 10)
+        {
+            kart.SetActive(true);
+        }
         GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
         Animator.animator.SetBool("moving", true);
     }
@@ -69,6 +78,12 @@ public class BigfootController : NetworkBehaviour
         RpcAddSound("BigfootHurt");
         currentHealth -= dammage;
 
+        if (speed < 30)
+        {
+            speed += 0.5f;
+        }
+
+        pathfinder.setSpeed(speed);
 
         RCPUpdateHealthBar();
         if (currentHealth <= 0)
@@ -81,7 +96,7 @@ public class BigfootController : NetworkBehaviour
     public void RpcTriggerEnd()
     {
         StartCoroutine(WaitForEnd());
-        
+
     }
 
     IEnumerator WaitForEnd()
@@ -101,7 +116,7 @@ public class BigfootController : NetworkBehaviour
 
     public void HesDead()
     {
-        
+
         if (currentHealth <= 0)
         {
             isDead = true;

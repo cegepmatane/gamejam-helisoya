@@ -76,7 +76,7 @@ public class Bullet : NetworkBehaviour
         }
         else if (col.tag.Equals("Player"))
         {
-            if (col.GetComponent<HunterMovement>().isLocalPlayer) return;
+            if (parent == col.GetComponent<HunterMovement>()) return;
             if (parent == HunterMovement.localPlayer)
             {
                 parent.AddFriendlyShoot();
