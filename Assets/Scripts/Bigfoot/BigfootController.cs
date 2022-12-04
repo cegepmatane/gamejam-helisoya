@@ -63,7 +63,7 @@ public class BigfootController : NetworkBehaviour
 
     void Start()
     {
-        if (Random.Range(0, 100) <= 10)
+        if (Random.Range(0, 100) <= 15)
         {
             kart.SetActive(true);
         }
@@ -78,7 +78,7 @@ public class BigfootController : NetworkBehaviour
         RpcAddSound("BigfootHurt");
         currentHealth -= dammage;
 
-        if (speed < 30)
+        if (speed < 10)
         {
             speed += 0.5f;
         }
