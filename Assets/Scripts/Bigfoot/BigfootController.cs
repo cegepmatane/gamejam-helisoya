@@ -10,10 +10,13 @@ public class BigfootController : NetworkBehaviour
 
     // Mouvment Var
     private PathFinder pathfinder;
+    private DissolveEffect dissolve;
     public PerlinNoiseMap map;
     private Path m_Path;
     [SerializeField] private float speed = 5f;
     private Vector3 MouvmentVector;
+
+    public bool isDead = false;
 
     // Health var
     public int maxHealth = 50;
@@ -23,6 +26,8 @@ public class BigfootController : NetworkBehaviour
     public NetworkAnimator Animator;
 
     public AudioSource generalAudio;
+
+    [SerializeField] private Renderer[] renderers;
 
     public void Init()
     {
@@ -75,13 +80,31 @@ public class BigfootController : NetworkBehaviour
     [ClientRpc]
     public void RpcTriggerEnd()
     {
+        StartCoroutine(WaitForEnd());
+        
+    }
+
+    IEnumerator WaitForEnd()
+    {
+        float dissolveAmount = 0;
+        while (dissolveAmount < 1)
+        {
+            dissolveAmount = Mathf.Clamp01(dissolveAmount + 0.3f * Time.deltaTime);
+            print("Dissolve " + dissolveAmount);
+            foreach (Renderer rd in renderers)
+                rd.material.SetFloat("_DissolveAmmount", dissolveAmount);
+            yield return new WaitForEndOfFrame();
+        }
+
         GameGUI.instance.ShowEndScreen();
     }
 
     public void HesDead()
     {
+        
         if (currentHealth <= 0)
         {
+            isDead = true;
             print("le bigfoot est mort");
             NetworkServer.Destroy(gameObject);
         }
