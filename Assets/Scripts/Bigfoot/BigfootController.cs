@@ -9,7 +9,7 @@ public class BigfootController : NetworkBehaviour
 {
 
 
-   // public Grid Grid;
+    // public Grid Grid;
     public OldPathFinder pathfinder;
     //public Transform[] Objectives;
 
@@ -17,7 +17,7 @@ public class BigfootController : NetworkBehaviour
     public Transform Objective;
 
     public PerlinNoiseMap map;
-    
+
 
     private Path m_Path;
 
@@ -35,8 +35,6 @@ public class BigfootController : NetworkBehaviour
     public float Speed = 10f;
 
     private Vector3 chqngem;
-
-
 
     public override void OnStartServer()
     {
