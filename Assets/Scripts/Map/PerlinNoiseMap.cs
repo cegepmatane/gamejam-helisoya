@@ -7,7 +7,8 @@ using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 
 
-public class PerlinNoiseMap : NetworkBehaviour {
+public class PerlinNoiseMap : NetworkBehaviour
+{
 
     public GameObject MiniMapCam;
 
@@ -46,11 +47,13 @@ public class PerlinNoiseMap : NetworkBehaviour {
     public Tilemap impassibleTilemap;
     public Tilemap treeTilemap;
 
-    private void Awake() {
+    private void Awake()
+    {
         MiniMapCam = GetComponentInChildren<Camera>().gameObject;
     }
 
-    void CreateTileset() {
+    void CreateTileset()
+    {
         // Liste de Game object pour avoir un truc randoms dan le tileset
         tileset = new Dictionary<int, List<TileBase>>();
         tileset.Add(0, prefab_Rock);
@@ -63,15 +66,18 @@ public class PerlinNoiseMap : NetworkBehaviour {
         tileset.Add(7, prefab_Tree);
     }
 
-    void GenerateMap() {
+    void GenerateMap()
+    {
         /** Generate a 2D grid using the Perlin noise fuction, storing it as
     		both raw ID values and tile gameobjects **/
         magnification = Random.Range(8, 15);
         x_offset = Random.Range(-999999, 999999);
         y_offset = Random.Range(-999999, 999999);
-        for (int x = 0; x < map_width; x++) {
+        for (int x = 0; x < map_width; x++)
+        {
             noise_grid.Add(new List<int>());
-            for (int y = 0; y < map_height; y++) {
+            for (int y = 0; y < map_height; y++)
+            {
                 int tile_id = GetIdUsingPerlin(x, y);
                 noise_grid[x].Add(tile_id);
             }
@@ -79,7 +85,8 @@ public class PerlinNoiseMap : NetworkBehaviour {
         potGenerateTreatment();
     }
 
-    void potGenerateTreatment() {
+    void potGenerateTreatment()
+    {
         // player spawn point Folder
         GameObject SpawnPoints = new GameObject("SpawnPoints");
         SpawnPoints.transform.parent = gameObject.transform;
@@ -88,16 +95,20 @@ public class PerlinNoiseMap : NetworkBehaviour {
         GameObject AmmunitionsCrates = new GameObject("AmmunitionsCrates");
         AmmunitionsCrates.transform.parent = gameObject.transform;
         AmmunitionsCrates.transform.localPosition = new Vector3(0, 0, 0);
-        for (int x = 0; x < map_width; x++) {
-            for (int y = 0; y < map_height; y++) {
+        for (int x = 0; x < map_width; x++)
+        {
+            for (int y = 0; y < map_height; y++)
+            {
                 // wall
-                if (x == 0 || x == map_width - 1 || y == 0 || y == map_height - 1) {
+                if (x == 0 || x == map_width - 1 || y == 0 || y == map_height - 1)
+                {
                     noise_grid[x][y] = 10;
                 }
                 if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6)
                 {
                     // player spawn point
-                    if (Random.Range(0, 100) == 0) {
+                    if (Random.Range(0, 100) == 0)
+                    {
                         GameObject spawnPoint = new GameObject();
                         spawnPoint.transform.parent = SpawnPoints.transform;
                         spawnPoint.name = string.Format("spawnPoint_x{0}_y{1}", x, y);
@@ -105,7 +116,8 @@ public class PerlinNoiseMap : NetworkBehaviour {
                         spawnPoint.AddComponent<NetworkStartPosition>();
                     }
                     // Ammo spawn point
-                    if (Random.Range(0, 200) == 0) {
+                    if (Random.Range(0, 200) == 0)
+                    {
                         GameObject AmmoSpawnPoint = new GameObject();
                         AmmoSpawnPoint.name = string.Format("AmmoSpawnPoint_x{0}_y{1}", x, y);
                         AmmoSpawnPoint.transform.position = new Vector3(x, y, -1);
@@ -116,7 +128,8 @@ public class PerlinNoiseMap : NetworkBehaviour {
                         NetworkServer.Spawn(AmmunitionsCrate);
                     }
                     // BigFoot targets
-                    if (Random.Range(0, 900) == 0) {
+                    if (Random.Range(0, 900) == 0)
+                    {
                         Targets.Add(new Vector3(x, y, 0));
                     }
 
@@ -131,15 +144,18 @@ public class PerlinNoiseMap : NetworkBehaviour {
 
     void RenderMap()
     {
-        for (int x = 0; x < map_width; x++) {
+        for (int x = 0; x < map_width; x++)
+        {
             //tile_grid.Add(new List<GameObject>());
-            for (int y = 0; y < map_height; y++) {
+            for (int y = 0; y < map_height; y++)
+            {
                 CreateTile(noise_grid[x][y], x, y);
             }
         }
     }
 
-    int GetIdUsingPerlin(int x, int y) {
+    int GetIdUsingPerlin(int x, int y)
+    {
         /** Using a grid coordinate input, generate a Perlin noise value to be
     		converted into a tile ID code. Rescale the normalised Perlin value
     		to the number of tiles available. **/
@@ -152,75 +168,93 @@ public class PerlinNoiseMap : NetworkBehaviour {
         float scaled_perlin = clamp_perlin * tileset.Count;
 
         // Replaced 4 with tileset.Count to make adding tiles easier
-        if (scaled_perlin == tileset.Count) {
+        if (scaled_perlin == tileset.Count)
+        {
             scaled_perlin = (tileset.Count - 1);
         }
         return Mathf.FloorToInt(scaled_perlin);
     }
 
-    void CreateTile(int tile_id, int x, int y) {
+    void CreateTile(int tile_id, int x, int y)
+    {
         /** Creates a new tile using the type id code, group it with common
     		tiles, set it's position and store the gameobject. **/
 
         TileBase tile_prefab = prefab_default;
         Tilemap tile_group = groundTilemap;
 
-        if (tile_id <= 0) {
+        if (tile_id <= 0)
+        {
             tile_group = impassibleTilemap;
         }
-        if (tile_id >= 6) {
+        if (tile_id >= 6)
+        {
             groundTilemap.SetTile(new Vector3Int(x, y, 0), prefab_Grass[0]);
             tile_group = treeTilemap;
         }
 
         int numberTile = 0;
-        if (tile_id != 10 && tileset[tile_id].Any()) {
-            if (tile_id == 3) {
+        if (tile_id != 10 && tileset[tile_id].Any())
+        {
+            if (tile_id == 3)
+            {
                 int[] tabcornerId = new int[9];
                 //[ 6 , 7 , 8 ]
                 //[ 3 , 4 , 5 ]		Tab idCorner  3 = dirtgrass    2 = dirt
                 //[ 0 , 1 , 2 ]
                 int counter = 0;
-                for (int a = -1; a <= 1; a++) {
-                    for (int b = -1; b <= 1; b++) {
+                for (int a = -1; a <= 1; a++)
+                {
+                    for (int b = -1; b <= 1; b++)
+                    {
                         tabcornerId[counter] = noise_grid[x + b][y + a];
                         counter++;
                     }
                 }
                 int whichTile = whichDirtGrass(tabcornerId);
 
-                if (whichTile <= 11 && whichTile >= 0) {
+                if (whichTile <= 11 && whichTile >= 0)
+                {
                     tile_prefab = tileset[3][whichTile];
                 }
-                else if (whichTile == 12) {
+                else if (whichTile == 12)
+                {
                     int size = tileset[4].Count;
-                    if (size > 1) {
+                    if (size > 1)
+                    {
                         numberTile = Random.Range(0, size);
                     }
                     tile_prefab = tileset[4][numberTile];
                 }
-                else {
+                else
+                {
                     int size2 = tileset[2].Count;
-                    if (size2 > 1) {
+                    if (size2 > 1)
+                    {
                         numberTile = Random.Range(0, size2);
                     }
                     tile_prefab = tileset[2][numberTile];
                 }
             }
-            else {
+            else
+            {
                 int size = tileset[tile_id].Count;
-                if (size > 1) {
+                if (size > 1)
+                {
                     numberTile = Random.Range(0, size);
                 }
                 tile_prefab = tileset[tile_id][numberTile];
             }
         }
-        else {
+        else
+        {
             int size = prefab_Wall.Count;
-            if (size > 1) {
+            if (size > 1)
+            {
                 numberTile = Random.Range(0, size);
             }
-            if (prefab_Wall.Any()) {
+            if (prefab_Wall.Any())
+            {
                 tile_prefab = prefab_Wall[numberTile];
             }
             tile_group = impassibleTilemap;
@@ -229,56 +263,69 @@ public class PerlinNoiseMap : NetworkBehaviour {
         tile_group.SetTile(new Vector3Int(x, y, 0), tile_prefab);
     }
 
-    private int whichDirtGrass(int[] tabcornerId) {
+    private int whichDirtGrass(int[] tabcornerId)
+    {
         bool[] isDirt = new bool[9];
-        for (int i = 0; i < tabcornerId.Length; i++) {
+        for (int i = 0; i < tabcornerId.Length; i++)
+        {
             isDirt[i] = tabcornerId[i] == 2 || tabcornerId[i] == 1;
         }
 
 
         // center
-        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8]) {
+        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
             return 12;
         }
 
         // inner corner
         // BR
-        if (!isDirt[0] && !isDirt[1] && isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8]) {
+        if (!isDirt[0] && !isDirt[1] && isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
             return 0;
         }
         // BL
-        if (isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8]) {
+        if (isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
             return 1;
         }
         // TR
-        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && isDirt[8]) {
+        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && !isDirt[6] && !isDirt[7] && isDirt[8])
+        {
             return 4;
         }
         // TL
-        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && isDirt[6] && !isDirt[7] && !isDirt[8]) {
+        if (!isDirt[0] && !isDirt[1] && !isDirt[2] && !isDirt[3] && !isDirt[5] && isDirt[6] && !isDirt[7] && !isDirt[8])
+        {
             return 5;
         }
 
         // sides
         // top / bottom
-        if (!isDirt[3] && !isDirt[5]) {
+        if (!isDirt[3] && !isDirt[5])
+        {
             //up
-            if (!isDirt[7]) {
+            if (!isDirt[7])
+            {
                 return 2;
             }
             // down
-            if (!isDirt[1]) {
+            if (!isDirt[1])
+            {
                 return 6;
             }
         }
         // right / left 
-        if (!isDirt[1] && !isDirt[7]) {
+        if (!isDirt[1] && !isDirt[7])
+        {
             //up
-            if (!isDirt[3]) {
+            if (!isDirt[3])
+            {
                 return 7;
             }
             // down
-            if (!isDirt[5]) {
+            if (!isDirt[5])
+            {
                 return 3;
             }
         }
@@ -286,89 +333,110 @@ public class PerlinNoiseMap : NetworkBehaviour {
 
         // outer Corner
         // BR
-        if (isDirt[1] && isDirt[5]) {
+        if (isDirt[1] && isDirt[5])
+        {
             return 8;
         }
         // BL
-        if (isDirt[1] && isDirt[3]) {
+        if (isDirt[1] && isDirt[3])
+        {
             return 9;
         }
         // TR
-        if (isDirt[5] && isDirt[7]) {
+        if (isDirt[5] && isDirt[7])
+        {
             return 10;
         }
         // TL
-        if (isDirt[3] && isDirt[7]) {
+        if (isDirt[3] && isDirt[7])
+        {
             return 11;
         }
         return 13;
     }
 
-    public SyncList<List<int>> getNoiseGrid() {
+    public SyncList<List<int>> getNoiseGrid()
+    {
         return noise_grid;
     }
-    
-    
-    public Vector3 getBigFootSpawn() {
-        if (Targets.Any()) {
+
+
+    public Vector3 getBigFootSpawn()
+    {
+        if (Targets.Any())
+        {
             return Targets[0];
         }
         return Vector3.zero;
     }
 
-    public List<Vector3> getTargets() {
+    public List<Vector3> getTargets()
+    {
         return Targets;
     }
 
-    void SpawCamera() {
+    void SpawCamera()
+    {
         float xCam = ((map_width / 2f) - 0.5f);
         float yCam = ((map_height / 2f) - 0.5f);
         MiniMapCam.transform.position = new Vector3(xCam, yCam, -10);
         MiniMapCam.GetComponent<Camera>().orthographicSize = map_width / 2f;
     }
 
-    private void Start() {
+    private void Start()
+    {
         CreateTileset();
-        if (isServer) {
+        if (isServer)
+        {
             GenerateMap();
         }
         RenderMap();
         SpawCamera();
     }
 
-    private void OnDrawGizmos() {
-        if (Event.current.control) {
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (Event.current.control)
+        {
             drawGrid();
             drawValueGen();
         }
     }
-    
-    #if UNITY_EDITOR
-    private void drawGrid() {
+
+
+    private void drawGrid()
+    {
         Vector3 _position = transform.position;
         float lenght;
         Vector3 t_D, t_A;
         Gizmos.color = Color.white;
         // vertical lignes
-        for (int i = 0; i <= map_width; i++) {
+        for (int i = 0; i <= map_width; i++)
+        {
             lenght = map_height;
             t_D = _position + (Vector3.right * i);
-            t_A = t_D + (Vector3.up * lenght); 
+            t_A = t_D + (Vector3.up * lenght);
             Gizmos.DrawLine(t_D, t_A);
         }
         // horizontal lignes
-        for (int i = 0; i <= map_height; i++) {
+        for (int i = 0; i <= map_height; i++)
+        {
             lenght = map_width;
-            t_D = _position + (Vector3.up * i );
+            t_D = _position + (Vector3.up * i);
             t_A = t_D + (Vector3.right * lenght);
             Gizmos.DrawLine(t_D, t_A);
         }
     }
-    
-    private void drawValueGen() {
+
+    private void drawValueGen()
+    {
         int _tempNoiseValue;
-        for (int x = 0; x < map_width; x++) {
-            for (int y = 0; y < map_height; y++) {
+        for (int x = 0; x < map_width; x++)
+        {
+            for (int y = 0; y < map_height; y++)
+            {
                 _tempNoiseValue = noise_grid[x][y];
                 /*
         tileset.Add(0, prefab_Rock);
@@ -380,7 +448,8 @@ public class PerlinNoiseMap : NetworkBehaviour {
         tileset.Add(6, prefab_Tree);
         tileset.Add(7, prefab_Tree);
                  */
-                switch (_tempNoiseValue) {
+                switch (_tempNoiseValue)
+                {
                     case 0:
                         Gizmos.color = new Color32(150, 150, 150, 204);
                         break;
@@ -409,10 +478,10 @@ public class PerlinNoiseMap : NetworkBehaviour {
                         Gizmos.color = Color.magenta;
                         break;
                 }
-                Gizmos.DrawCube(new Vector3(x+0.5f, y+0.5f, 0), new Vector3(0.5f, 0.5f, 0.5f));
+                Gizmos.DrawCube(new Vector3(x + 0.5f, y + 0.5f, 0), new Vector3(0.5f, 0.5f, 0.5f));
             }
         }
     }
-    
-    #endif
+
+#endif
 }
