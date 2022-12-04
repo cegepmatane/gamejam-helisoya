@@ -19,7 +19,6 @@ public class ServerList : MonoBehaviour
     {
         string[] ipSplit = GetLocalIPv4().Split(".");
         string ipCorrect = ipSplit[0] + "." + ipSplit[1] + "." + ipSplit[2] + ".255";
-        print(ipCorrect);
         networkDiscovery.BroadcastAddress = ipCorrect;
         SearchServers();
     }
