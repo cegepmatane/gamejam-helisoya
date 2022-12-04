@@ -510,13 +510,13 @@ MonoBehaviour:
   prefab_Grass:
   - {fileID: 11400000, guid: d3c446c43dfe1684cabc240e20d5db60, type: 2}
   prefab_Tree:
-  - {fileID: 11400000, guid: b197d889f1012ea4289913d54af5f19c, type: 2}
+  - {fileID: 11400000, guid: 55bb0a2b057b49445b17c1c8733cdeb0, type: 2}
   prefab_Wall:
   - {fileID: 11400000, guid: ab137234eb347c2409724796fc463efa, type: 2}
   prefab_default: {fileID: 11400000, guid: f3cb89e6fbc24054589183ccea163c94, type: 2}
   prefab_AmmunitionCrate: {fileID: 6012355252179814776, guid: f90d583d50dea04459c388b4733a7d96, type: 3}
-  map_width: 100
-  map_height: 100
+  map_width: 120
+  map_height: 120
   groundTilemap: {fileID: 705263324}
   impassibleTilemap: {fileID: 443275280}
   treeTilemap: {fileID: 1680506229}

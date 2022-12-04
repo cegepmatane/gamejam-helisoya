@@ -127,6 +127,7 @@ public class PerlinNoiseMap : NetworkBehaviour
                         GameObject AmmunitionsCrate = Instantiate(prefab_AmmunitionCrate, AmmoSpawnPoint.transform);
                         AmmunitionsCrate.name = string.Format("Ammunition_x{0}_y{1}", x, y);
                         AmmunitionsCrate.transform.localPosition = new Vector3(0, 0, -1);
+                        NetworkServer.Spawn(AmmunitionsCrate);
                     }
                     // BigFoot targets
                     if (Random.Range(0, 1000) == 0)
@@ -189,6 +190,7 @@ public class PerlinNoiseMap : NetworkBehaviour
         }
         if (tile_id >= 6)
         {
+            groundTilemap.SetTile(new Vector3Int(x, y, 0), prefab_Grass[0]);
             tile_group = treeTilemap;
         }
 
