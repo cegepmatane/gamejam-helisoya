@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2338397467974102694}
   - component: {fileID: 2338397467974102695}
   m_Layer: 0
-  m_Name: 68f6e766-cf14-4320-86cf-26175e0da3b1
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,12 +139,17 @@ MonoBehaviour:
   syncDirection: 1
   syncMode: 0
   syncInterval: 0.1
+  pathfinder: {fileID: 0}
+  Spawn: {fileID: 0}
+  Objective: {fileID: 0}
+  map: {fileID: 0}
   bullet: {fileID: 0}
   speed: 0
   rotationSpeed: 0
   Animator: {fileID: 0}
   maxHealth: 50
   currentHealth: 0
+  Speed: 10
 --- !u!114 &2338397468704162811
 MonoBehaviour:
   m_ObjectHideFlags: 0
