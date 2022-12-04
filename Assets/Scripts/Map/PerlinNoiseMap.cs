@@ -38,6 +38,9 @@ public class PerlinNoiseMap : NetworkBehaviour
 
     int x_offset = 0; // <- +>
     int y_offset = 0; // v- +^
+    
+    // BigFoot
+    private List<Vector3> Targets = new List<Vector3>();
 
     private void Awake()
     {
@@ -101,34 +104,46 @@ public class PerlinNoiseMap : NetworkBehaviour
     }
 
     void potGenerateTreatment() {
+        // player spawn point Folder
 	    GameObject SpawnPoints = new GameObject("SpawnPoints");
 	    SpawnPoints.transform.parent = gameObject.transform;
 	    SpawnPoints.transform.localPosition = new Vector3(0, 0, 0);
+        // Ammo spawn point Folder
 	    GameObject AmmunitionsCrates = new GameObject("AmmunitionsCrates");
 	    AmmunitionsCrates.transform.parent = gameObject.transform;
 	    AmmunitionsCrates.transform.localPosition = new Vector3(0, 0, 0);
-	    for(int x = 0; x < map_width; x++) {
+        for(int x = 0; x < map_width; x++) {
 		    for(int y = 0; y < map_height; y++) {
 			    // wall
 			    if (x == 0 || x == map_width-1 || y == 0 || y == map_height-1) {
 				    noise_grid[x][y] = 10;
 			    }
-			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6 && Random.Range(0, 100) == 0) {
-				    GameObject spawnPoint = new GameObject();
-				    spawnPoint.transform.parent = SpawnPoints.transform;
-				    spawnPoint.name = string.Format("spawnPoint_x{0}_y{1}", x, y);
-				    spawnPoint.transform.localPosition = new Vector3(x, y, 0);
-				    spawnPoint.AddComponent<NetworkStartPosition>();
+			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6) {
+                    // player spawn point
+                    if (Random.Range(0, 100) == 0) {
+                        GameObject spawnPoint = new GameObject();
+                        spawnPoint.transform.parent = SpawnPoints.transform;
+                        spawnPoint.name = string.Format("spawnPoint_x{0}_y{1}", x, y);
+                        spawnPoint.transform.localPosition = new Vector3(x, y, 0);
+                        spawnPoint.AddComponent<NetworkStartPosition>();
+                    }
+                    // Ammo spawn point
+                    if (Random.Range(0, 200) == 0) {
+                        GameObject AmmoSpawnPoint = new GameObject();
+                        AmmoSpawnPoint.name = string.Format("AmmoSpawnPoint_x{0}_y{1}", x, y);
+                        AmmoSpawnPoint.transform.localPosition = new Vector3(x, y, -1);
+                        AmmoSpawnPoint.transform.parent = AmmunitionsCrates.transform;
+                        GameObject AmmunitionsCrate = Instantiate(prefab_AmmunitionCrate, AmmoSpawnPoint.transform);
+                        AmmunitionsCrate.name = string.Format("Ammunition_x{0}_y{1}", x, y);
+                        AmmunitionsCrate.transform.localPosition = new Vector3(0, 0, -1);
+                    }
+                    // BigFoot targets
+                    if (Random.Range(0, 1000) == 0) {
+                        Targets.Add(new Vector3(x, y, 0));
+                    }
+                    
 			    }
-			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6 && Random.Range(0, 200) == 0) {
-				    GameObject AmmoSpawnPoint = new GameObject();
-				    AmmoSpawnPoint.name = string.Format("AmmoSpawnPoint_x{0}_y{1}", x, y);
-				    AmmoSpawnPoint.transform.localPosition = new Vector3(x, y, -1);
-				    AmmoSpawnPoint.transform.parent = AmmunitionsCrates.transform;
-				    GameObject AmmunitionsCrate = Instantiate(prefab_AmmunitionCrate, AmmoSpawnPoint.transform);
-				    AmmunitionsCrate.name = string.Format("Ammunition_x{0}_y{1}", x, y);
-                    AmmunitionsCrate.transform.localPosition = new Vector3(0, 0, -1);
-			    }
+			    
 		    }
 	    }
     }
@@ -191,7 +206,6 @@ public class PerlinNoiseMap : NetworkBehaviour
                     for (int b = -1; b <= 1; b++)
                     {
                         tabcornerId[counter] = noise_grid[x + b][y + a];
-                        Debug.Log("b:" + b + " a:" + a + " counter:" + counter);
                         counter++;
                     }
                 }
@@ -394,6 +408,17 @@ public class PerlinNoiseMap : NetworkBehaviour
         return noise_grid;
     }
 
+    public Vector3 getBigFootSpawn() {
+        if (Targets.Any()) {
+            return Targets[0];
+        }
+        return Vector3.zero;
+    }
+
+    public List<Vector3> getTargets() {
+        return Targets;
+    }
+
     void SpawCamera()
     {
         float xCam = ((map_width / 2f) - 0.5f);
@@ -414,17 +439,5 @@ public class PerlinNoiseMap : NetworkBehaviour
         SpawCamera();
     }
 
-    /*
-    public override void OnStartServer() {
-	    CreateTileset();
-	    CreateTileGroups();
-	    GenerateMap();
-    }
-
-    public override void OnStartClient() {
-	    CreateTileset();
-	    CreateTileGroups();
-	    RenderMap();
-    }
-    */
+    
 }

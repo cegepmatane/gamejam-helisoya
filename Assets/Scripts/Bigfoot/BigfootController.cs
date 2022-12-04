@@ -9,10 +9,9 @@ public class BigfootController : NetworkBehaviour {
     
     // Mouvment Var
     private PathFinder pathfinder;
-    public Transform Spawn;
     public PerlinNoiseMap map;
     private Path m_Path;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 5f;
     private Vector3 MouvmentVector;
     
     // Health var
@@ -25,9 +24,10 @@ public class BigfootController : NetworkBehaviour {
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-        transform.position = Spawn.transform.position;
+        transform.position = map.getBigFootSpawn();
         pathfinder = GetComponentInChildren<PathFinder>();
         pathfinder.setMap(map);
+        pathfinder.setSpeed(speed);
     }
     
 
