@@ -17,6 +17,12 @@ public class Bullet : NetworkBehaviour
 
     private HunterMovement parent;
 
+    [SyncVar] private bool dead;
+
+    public override void OnStartServer()
+    {
+        dead = false;
+    }
 
     public void Init(Vector3 vector, HunterMovement hunter)
     {
@@ -43,6 +49,11 @@ public class Bullet : NetworkBehaviour
         transform.position += movementVector * Time.deltaTime * speed;
     }
 
+    [Command(requiresAuthority = false)]
+    public void CmdSetDead()
+    {
+        dead = true;
+    }
 
 
     public void DestroySelf()
@@ -53,6 +64,7 @@ public class Bullet : NetworkBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (dead) return;
         if (col.tag.Equals("BigFoot"))
         {
             if (parent == HunterMovement.localPlayer)
@@ -72,6 +84,7 @@ public class Bullet : NetworkBehaviour
             Vector3 vec = col.transform.position - transform.position;
             vec.Normalize();
             col.GetComponent<HunterMovement>().Stun(vec);
+            DestroySelf();
         }
     }
 }
