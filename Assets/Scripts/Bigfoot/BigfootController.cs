@@ -23,6 +23,8 @@ public class BigfootController : NetworkBehaviour
     // Other var
     public NetworkAnimator Animator;
 
+    public AudioSource generalAudio;
+
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
@@ -58,6 +60,7 @@ public class BigfootController : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void TakeDamage(int dammage)
     {
+        RpcAddSound("BigfootHurt");
         currentHealth -= dammage;
 
 
@@ -87,6 +90,23 @@ public class BigfootController : NetworkBehaviour
     public void RCPUpdateHealthBar()
     {
         GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
+    }
+
+
+
+
+    [Command]
+    public void CmdAddSound(string filename)
+    {
+        RpcAddSound(filename);
+    }
+
+    [ClientRpc]
+    public void RpcAddSound(string filename)
+    {
+        AudioClip clip = Resources.Load<AudioClip>("Audio/SFX/" + filename);
+        if (clip != null)
+            generalAudio.PlayOneShot(clip);
     }
 
 }
