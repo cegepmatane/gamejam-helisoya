@@ -2,10 +2,24 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
+using Random = UnityEngine.Random;
 
 public class BigfootController : NetworkBehaviour
 {
+
+
+   // public Grid Grid;
+    public OldPathFinder pathfinder;
+    //public Transform[] Objectives;
+
+    public Transform Spawn;
+    public Transform Objective;
+
+    public PerlinNoiseMap map;
+    
+
+    private Path m_Path;
 
     [SerializeField] Bullet bullet;
 
@@ -18,36 +32,37 @@ public class BigfootController : NetworkBehaviour
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
 
+    public float Speed = 10f;
+
+    private Vector3 chqngem;
+
+
+
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
+
+        transform.position = Spawn.transform.position;
     }
 
-
+    public float amplitude = 10f;          //Set in Inspector 
+    private Vector3 tempPos;
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector2 movementDirection = new Vector2(horizontalInput, verticalInput);
-        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
-        movementDirection.Normalize();
-
-        transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
-
-        if (movementDirection != Vector2.zero)
-        {
-            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
             TakeDamage(10);
             print(currentHealth);
         }
+
+
+        tempPos.x = 7;
+        tempPos.y = amplitude * Mathf.Sin(speed * Time.time);
+        transform.localPosition = tempPos;
+
 
     }
 
@@ -65,7 +80,16 @@ public class BigfootController : NetworkBehaviour
 
 
         RCPUpdateHealthBar();
-        //HesDead();
+        if (currentHealth <= 0)
+        {
+            RpcTriggerEnd();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcTriggerEnd()
+    {
+        GameGUI.instance.ShowEndScreen();
     }
 
     public void HesDead()
