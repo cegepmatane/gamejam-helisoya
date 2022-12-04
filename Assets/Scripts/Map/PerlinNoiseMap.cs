@@ -6,41 +6,48 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Mirror;
 using Random = UnityEngine.Random;
+using UnityEngine.Tilemaps;
+using Tile = UnityEngine.Tilemaps.Tile;
 
 public class PerlinNoiseMap : NetworkBehaviour
 {
 
     public GameObject MiniMapCam;
 
-    Dictionary<int, List<GameObject>> tileset;
-    Dictionary<int, GameObject> tile_groups;
+    Dictionary<int, List<TileBase>> tileset;
     [Space(3)]
     [Header("Tiles Set")]
     [Space(1)]
-    public List<GameObject> prefab_Rock = new List<GameObject>();
-    public List<GameObject> prefab_Dirt_Rock = new List<GameObject>();
-    public List<GameObject> prefab_Dirt = new List<GameObject>();
-    public List<GameObject> prefab_DirtyGrass = new List<GameObject>();
-    public List<GameObject> prefab_Grass = new List<GameObject>();
-    public List<GameObject> prefab_Tree = new List<GameObject>();
-    public List<GameObject> prefab_Wall = new List<GameObject>();
-    public GameObject prefab_default;
+    public List<TileBase> prefab_Rock = new List<TileBase>();
+    public List<TileBase> prefab_Dirt_Rock = new List<TileBase>();
+    public List<TileBase> prefab_Dirt = new List<TileBase>();
+    public List<TileBase> prefab_DirtyGrass = new List<TileBase>();
+    public List<TileBase> prefab_Grass = new List<TileBase>();
+    public List<TileBase> prefab_Tree = new List<TileBase>();
+    public List<TileBase> prefab_Wall = new List<TileBase>();
+    public TileBase prefab_default;
     public GameObject prefab_AmmunitionCrate;
 
     public int map_width = 100;
     public int map_height = 100;
 
     SyncList<List<int>> noise_grid = new SyncList<List<int>>();
-    List<List<GameObject>> tile_grid = new List<List<GameObject>>();
+    //List<List<GameObject>> tile_grid = new List<List<GameObject>>();
 
     // recommend 4 to 20
     float magnification = 7.0f;
 
     int x_offset = 0; // <- +>
     int y_offset = 0; // v- +^
-    
+
     // BigFoot
     private List<Vector3> Targets = new List<Vector3>();
+
+
+    [Header("TileMaps")]
+    public Tilemap groundTilemap;
+    public Tilemap impassibleTilemap;
+    public Tilemap treeTilemap;
 
     private void Awake()
     {
@@ -50,7 +57,7 @@ public class PerlinNoiseMap : NetworkBehaviour
     void CreateTileset()
     {
         // Liste de Game object pour avoir un truc randoms dan le tileset
-        tileset = new Dictionary<int, List<GameObject>>();
+        tileset = new Dictionary<int, List<TileBase>>();
         tileset.Add(0, prefab_Rock);
         tileset.Add(1, prefab_Dirt_Rock);
         tileset.Add(2, prefab_Dirt);
@@ -59,29 +66,6 @@ public class PerlinNoiseMap : NetworkBehaviour
         tileset.Add(5, prefab_Grass);
         tileset.Add(6, prefab_Tree);
         tileset.Add(7, prefab_Tree);
-    }
-
-    void CreateTileGroups()
-    {
-        /** Create empty gameobjects for grouping tiles of the same type, ie
-    		forest tiles **/
-
-        tile_groups = new Dictionary<int, GameObject>();
-        foreach (KeyValuePair<int, List<GameObject>> prefab_pair in tileset)
-        {
-            GameObject tile_group = new GameObject("TileType" + prefab_pair.Key);
-            tile_group.transform.parent = gameObject.transform;
-            tile_group.transform.localPosition = new Vector3(0, 0, 0);
-            tile_groups.Add(prefab_pair.Key, tile_group);
-        }
-        GameObject default_tile_group = new GameObject("NoSprite");
-        default_tile_group.transform.parent = gameObject.transform;
-        default_tile_group.transform.localPosition = new Vector3(0, 0, 0);
-        tile_groups.Add(666, default_tile_group);
-        GameObject Wall_tile_group = new GameObject("WALL");
-        Wall_tile_group.transform.parent = gameObject.transform;
-        Wall_tile_group.transform.localPosition = new Vector3(0, 0, 0);
-        tile_groups.Add(999, Wall_tile_group);
     }
 
     void GenerateMap()
@@ -103,24 +87,30 @@ public class PerlinNoiseMap : NetworkBehaviour
         potGenerateTreatment();
     }
 
-    void potGenerateTreatment() {
+    void potGenerateTreatment()
+    {
         // player spawn point Folder
-	    GameObject SpawnPoints = new GameObject("SpawnPoints");
-	    SpawnPoints.transform.parent = gameObject.transform;
-	    SpawnPoints.transform.localPosition = new Vector3(0, 0, 0);
+        GameObject SpawnPoints = new GameObject("SpawnPoints");
+        SpawnPoints.transform.parent = gameObject.transform;
+        SpawnPoints.transform.localPosition = new Vector3(0, 0, 0);
         // Ammo spawn point Folder
-	    GameObject AmmunitionsCrates = new GameObject("AmmunitionsCrates");
-	    AmmunitionsCrates.transform.parent = gameObject.transform;
-	    AmmunitionsCrates.transform.localPosition = new Vector3(0, 0, 0);
-        for(int x = 0; x < map_width; x++) {
-		    for(int y = 0; y < map_height; y++) {
-			    // wall
-			    if (x == 0 || x == map_width-1 || y == 0 || y == map_height-1) {
-				    noise_grid[x][y] = 10;
-			    }
-			    if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6) {
+        GameObject AmmunitionsCrates = new GameObject("AmmunitionsCrates");
+        AmmunitionsCrates.transform.parent = gameObject.transform;
+        AmmunitionsCrates.transform.localPosition = new Vector3(0, 0, 0);
+        for (int x = 0; x < map_width; x++)
+        {
+            for (int y = 0; y < map_height; y++)
+            {
+                // wall
+                if (x == 0 || x == map_width - 1 || y == 0 || y == map_height - 1)
+                {
+                    noise_grid[x][y] = 10;
+                }
+                if (noise_grid[x][y] > 0 && noise_grid[x][y] < 6)
+                {
                     // player spawn point
-                    if (Random.Range(0, 100) == 0) {
+                    if (Random.Range(0, 100) == 0)
+                    {
                         GameObject spawnPoint = new GameObject();
                         spawnPoint.transform.parent = SpawnPoints.transform;
                         spawnPoint.name = string.Format("spawnPoint_x{0}_y{1}", x, y);
@@ -128,7 +118,8 @@ public class PerlinNoiseMap : NetworkBehaviour
                         spawnPoint.AddComponent<NetworkStartPosition>();
                     }
                     // Ammo spawn point
-                    if (Random.Range(0, 200) == 0) {
+                    if (Random.Range(0, 200) == 0)
+                    {
                         GameObject AmmoSpawnPoint = new GameObject();
                         AmmoSpawnPoint.name = string.Format("AmmoSpawnPoint_x{0}_y{1}", x, y);
                         AmmoSpawnPoint.transform.localPosition = new Vector3(x, y, -1);
@@ -138,14 +129,15 @@ public class PerlinNoiseMap : NetworkBehaviour
                         AmmunitionsCrate.transform.localPosition = new Vector3(0, 0, -1);
                     }
                     // BigFoot targets
-                    if (Random.Range(0, 1000) == 0) {
+                    if (Random.Range(0, 1000) == 0)
+                    {
                         Targets.Add(new Vector3(x, y, 0));
                     }
-                    
-			    }
-			    
-		    }
-	    }
+
+                }
+
+            }
+        }
     }
 
 
@@ -154,7 +146,7 @@ public class PerlinNoiseMap : NetworkBehaviour
     {
         for (int x = 0; x < map_width; x++)
         {
-            tile_grid.Add(new List<GameObject>());
+            //tile_grid.Add(new List<GameObject>());
             for (int y = 0; y < map_height; y++)
             {
                 CreateTile(noise_grid[x][y], x, y);
@@ -188,8 +180,17 @@ public class PerlinNoiseMap : NetworkBehaviour
         /** Creates a new tile using the type id code, group it with common
     		tiles, set it's position and store the gameobject. **/
 
-        GameObject tile_prefab = prefab_default;
-        GameObject tile_group = tile_groups[666];
+        TileBase tile_prefab = prefab_default;
+        Tilemap tile_group = groundTilemap;
+
+        if (tile_id <= 0)
+        {
+            tile_group = impassibleTilemap;
+        }
+        if (tile_id >= 6)
+        {
+            tile_group = treeTilemap;
+        }
 
         int numberTile = 0;
         if (tile_id != 10 && tileset[tile_id].Any())
@@ -210,74 +211,28 @@ public class PerlinNoiseMap : NetworkBehaviour
                     }
                 }
                 int whichTile = whichDirtGrass(tabcornerId);
-                switch (whichTile)
+
+                if (whichTile <= 11 && whichTile >= 0)
                 {
-                    case 0:
-                        tile_prefab = tileset[3][0];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 1:
-                        tile_prefab = tileset[3][1];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 2:
-                        tile_prefab = tileset[3][2];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 3:
-                        tile_prefab = tileset[3][3];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 4:
-                        tile_prefab = tileset[3][4];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 5:
-                        tile_prefab = tileset[3][5];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 6:
-                        tile_prefab = tileset[3][6];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 7:
-                        tile_prefab = tileset[3][7];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 8:
-                        tile_prefab = tileset[3][8];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 9:
-                        tile_prefab = tileset[3][9];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 10:
-                        tile_prefab = tileset[3][10];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 11:
-                        tile_prefab = tileset[3][11];
-                        tile_group = tile_groups[3];
-                        break;
-                    case 12:
-                        int size = tileset[4].Count;
-                        if (size > 1)
-                        {
-                            numberTile = Random.Range(0, size);
-                        }
-                        tile_prefab = tileset[4][numberTile];
-                        tile_group = tile_groups[3];
-                        break;
-                    default:
-                        int size2 = tileset[2].Count;
-                        if (size2 > 1)
-                        {
-                            numberTile = Random.Range(0, size2);
-                        }
-                        tile_prefab = tileset[2][numberTile];
-                        tile_group = tile_groups[3];
-                        break;
+                    tile_prefab = tileset[3][whichTile];
+                }
+                else if (whichTile == 12)
+                {
+                    int size = tileset[4].Count;
+                    if (size > 1)
+                    {
+                        numberTile = Random.Range(0, size);
+                    }
+                    tile_prefab = tileset[4][numberTile];
+                }
+                else
+                {
+                    int size2 = tileset[2].Count;
+                    if (size2 > 1)
+                    {
+                        numberTile = Random.Range(0, size2);
+                    }
+                    tile_prefab = tileset[2][numberTile];
                 }
             }
             else
@@ -288,7 +243,6 @@ public class PerlinNoiseMap : NetworkBehaviour
                     numberTile = Random.Range(0, size);
                 }
                 tile_prefab = tileset[tile_id][numberTile];
-                tile_group = tile_groups[tile_id];
             }
         }
         else
@@ -302,13 +256,10 @@ public class PerlinNoiseMap : NetworkBehaviour
             {
                 tile_prefab = prefab_Wall[numberTile];
             }
-            tile_group = tile_groups[999];
+            tile_group = impassibleTilemap;
         }
 
-        GameObject tile = Instantiate(tile_prefab, tile_group.transform);
-        tile.name = string.Format("tile_x{0}_y{1}", x, y);
-        tile.transform.localPosition = new Vector3(x, y, 0);
-        tile_grid[x].Add(tile);
+        tile_group.SetTile(new Vector3Int(x, y, 0), tile_prefab);
     }
 
     private int whichDirtGrass(int[] tabcornerId)
@@ -408,14 +359,17 @@ public class PerlinNoiseMap : NetworkBehaviour
         return noise_grid;
     }
 
-    public Vector3 getBigFootSpawn() {
-        if (Targets.Any()) {
+    public Vector3 getBigFootSpawn()
+    {
+        if (Targets.Any())
+        {
             return Targets[0];
         }
         return Vector3.zero;
     }
 
-    public List<Vector3> getTargets() {
+    public List<Vector3> getTargets()
+    {
         return Targets;
     }
 
@@ -430,7 +384,6 @@ public class PerlinNoiseMap : NetworkBehaviour
     private void Start()
     {
         CreateTileset();
-        CreateTileGroups();
         if (isServer)
         {
             GenerateMap();
@@ -439,5 +392,5 @@ public class PerlinNoiseMap : NetworkBehaviour
         SpawCamera();
     }
 
-    
+
 }
