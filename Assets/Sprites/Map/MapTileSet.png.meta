@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40ce8c1ff4b504240a4f5383705d9823
+guid: 4c95d759718b3bd7787412954bb8f98e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -101,437 +101,530 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: feets_0
+      name: MapTileSet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 124
-        height: 172
+        y: 2048
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79106b9170a93d444a70372b940619a8
-      internalID: 358239729
+      spriteID: cf3c3c6a1b47b2246ad261f8bfc29632
+      internalID: 1003052808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_1
+      name: MapTileSet_1
       rect:
         serializedVersion: 2
-        x: 124
-        y: 0
-        width: 124
-        height: 172
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ff7e2fb7d05dc246a8ccf8b8eb3ed85
-      internalID: 1050084884
+      spriteID: 947dd0b9566ba928d86c9dcb9db2db6d
+      internalID: 494272672
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_2
+      name: MapTileSet_2
       rect:
         serializedVersion: 2
-        x: 248
-        y: 0
-        width: 124
-        height: 172
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38f01e55c1b33324cbbe3532c06abce5
-      internalID: 1632391019
+      spriteID: 8d91ff32c5aa1847fa1e81606d1e4c93
+      internalID: 1176338153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_3
+      name: MapTileSet_3
       rect:
         serializedVersion: 2
-        x: 372
-        y: 0
-        width: 124
-        height: 172
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1af5e323449fc354d865428670587754
-      internalID: 514109439
+      spriteID: fee0e22ecbb848b9ab0145a57b080844
+      internalID: 866697634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_4
+      name: MapTileSet_4
       rect:
         serializedVersion: 2
-        x: 496
-        y: 0
-        width: 124
-        height: 172
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9951734abf2cf414b8cad97c33218ef9
-      internalID: -901457414
+      spriteID: eb7ab46d0af0d296fb5100390dab5c3d
+      internalID: 695766381
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_5
+      name: MapTileSet_5
       rect:
         serializedVersion: 2
-        x: 620
-        y: 0
-        width: 124
-        height: 172
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71fe224b5a3a96e4dafe483d7064950d
-      internalID: 1662413016
+      spriteID: 141883859e5d969569a935ac6baaeb43
+      internalID: -205231636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_6
+      name: MapTileSet_6
       rect:
         serializedVersion: 2
-        x: 744
-        y: 0
-        width: 124
-        height: 172
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb7ee38498a440a4b938439de31b0c5d
-      internalID: 396531307
+      spriteID: 9e71018af9951cfbb97e419e5db0e382
+      internalID: -1645585840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_7
+      name: MapTileSet_7
       rect:
         serializedVersion: 2
-        x: 868
-        y: 0
-        width: 124
-        height: 172
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 786186c02f0f8a045b08df8ce93707d7
-      internalID: -1994633538
+      spriteID: 46ef9b00d425105b985516bf39989d32
+      internalID: 481023119
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_8
+      name: MapTileSet_8
       rect:
         serializedVersion: 2
-        x: 992
-        y: 0
-        width: 124
-        height: 172
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5388c07960260794a8f91eb04db84ab7
-      internalID: -703144295
+      spriteID: 2591c5ceeada07354977c42af97e63d4
+      internalID: -1570215873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_9
+      name: MapTileSet_9
       rect:
         serializedVersion: 2
-        x: 1116
-        y: 0
-        width: 124
-        height: 172
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daff8051771ffba499bf9b0f64347ecb
-      internalID: 619934325
+      spriteID: 2e1fca144a937679b8a0056518510aca
+      internalID: 1005084776
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_10
+      name: MapTileSet_10
       rect:
         serializedVersion: 2
-        x: 1240
-        y: 0
-        width: 124
-        height: 172
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1491676cc8c63340a593e5821f1eb32
-      internalID: 90737640
+      spriteID: 612c5aa8ff061a422b03172f02f31de5
+      internalID: 1674679411
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_11
+      name: MapTileSet_11
       rect:
         serializedVersion: 2
-        x: 1364
-        y: 0
-        width: 124
-        height: 172
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce350a65cb8993d4cba4ba51f1949b7c
-      internalID: 103755475
+      spriteID: e93f0caf1a2d945da9e94cead9c9b397
+      internalID: 1345988848
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_12
+      name: MapTileSet_12
       rect:
         serializedVersion: 2
-        x: 1488
-        y: 0
-        width: 124
-        height: 172
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcf0d11bb69c6d145979063a3144836d
-      internalID: -177694626
+      spriteID: 72cca948fcadddf10a1a16595681b103
+      internalID: -206748463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_13
+      name: MapTileSet_13
       rect:
         serializedVersion: 2
-        x: 1612
-        y: 0
-        width: 124
-        height: 172
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d78235bcca412d34497dd5a5fb333e1f
-      internalID: -201294946
+      spriteID: 5b112b26e84b84396af68bb04468883e
+      internalID: 30403541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_14
+      name: MapTileSet_14
       rect:
         serializedVersion: 2
-        x: 1736
-        y: 0
-        width: 124
-        height: 172
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6778660e312019438f4b54128a1ab14
-      internalID: -337234291
+      spriteID: 93c15411b563f77cd82b47f018fa968a
+      internalID: 1708256942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_15
+      name: MapTileSet_15
       rect:
         serializedVersion: 2
-        x: 1860
-        y: 0
-        width: 124
-        height: 172
+        x: 0
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a63108621ca94304e96f7ca4bfcc31d1
-      internalID: -413912578
+      spriteID: 16ac4f19aebf70fad94dd4502d66db0e
+      internalID: 1024256476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_16
+      name: MapTileSet_16
       rect:
         serializedVersion: 2
-        x: 1984
-        y: 0
-        width: 124
-        height: 172
+        x: 512
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5b292b9ea7314f44b10d4b058f871eb
-      internalID: 482984009
+      spriteID: 66f1d27d2c675674f8da1ec27f5d1672
+      internalID: -33143136
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_17
+      name: MapTileSet_17
       rect:
         serializedVersion: 2
-        x: 2108
-        y: 0
-        width: 124
-        height: 172
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e192519b72a66ba41ae63acc556a5e14
-      internalID: -1093184311
+      spriteID: 258280897fe87b4fbbecd15d2c77afcf
+      internalID: -969768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_18
+      name: MapTileSet_18
       rect:
         serializedVersion: 2
-        x: 2232
-        y: 0
-        width: 124
-        height: 172
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb2514c355e0cf24a8fe44330a70e7d7
-      internalID: 584154792
+      spriteID: 7ba99652bd861ed6a8910b659f03bd97
+      internalID: -2110915733
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: feets_19
+      name: MapTileSet_19
       rect:
         serializedVersion: 2
-        x: 2356
-        y: 0
-        width: 124
-        height: 172
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74dd4a32374cd7648b11245fa17b0028
-      internalID: -1687359958
+      spriteID: 751ae001d34bfc677af8560aa2f39900
+      internalID: -1443270769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapTileSet_20
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77228f569ac1d9e6aaabd02eee9a4ab2
+      internalID: 1054630206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapTileSet_21
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77ddbef8770e5190591d0468aa3f5a88
+      internalID: -1296275537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapTileSet_22
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca784795da2c4cff9be6e8f718af118d
+      internalID: 1891031573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapTileSet_23
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cf45a52b703dacf1b47c50f94d5ec7a
+      internalID: -159429881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapTileSet_24
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77d9a18a7ee41ad3e984f4e2b0c7ebbf
+      internalID: 1064596593
       vertices: []
       indices: 
       edges: []
@@ -547,26 +640,31 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      feets_19: -1687359958
-      feets_4: -901457414
-      feets_13: -201294946
-      feets_3: 514109439
-      feets_9: 619934325
-      feets_15: -413912578
-      feets_11: 103755475
-      feets_12: -177694626
-      feets_10: 90737640
-      feets_18: 584154792
-      feets_7: -1994633538
-      feets_14: -337234291
-      feets_0: 358239729
-      feets_16: 482984009
-      feets_2: 1632391019
-      feets_1: 1050084884
-      feets_8: -703144295
-      feets_5: 1662413016
-      feets_17: -1093184311
-      feets_6: 396531307
+      MapTileSet_2: 1176338153
+      MapTileSet_14: 1708256942
+      MapTileSet_9: 1005084776
+      MapTileSet_8: -1570215873
+      MapTileSet_22: 1891031573
+      MapTileSet_20: 1054630206
+      MapTileSet_7: 481023119
+      MapTileSet_17: -969768
+      MapTileSet_21: -1296275537
+      MapTileSet_19: -1443270769
+      MapTileSet_12: -206748463
+      MapTileSet_1: 494272672
+      MapTileSet_4: 695766381
+      MapTileSet_5: -205231636
+      MapTileSet_6: -1645585840
+      MapTileSet_15: 1024256476
+      MapTileSet_18: -2110915733
+      MapTileSet_3: 866697634
+      MapTileSet_24: 1064596593
+      MapTileSet_13: 30403541
+      MapTileSet_23: -159429881
+      MapTileSet_16: -33143136
+      MapTileSet_10: 1674679411
+      MapTileSet_11: 1345988848
+      MapTileSet_0: 1003052808
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
