@@ -1,28 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class AmmoBox : NetworkBehaviour
-{
+public class AmmoBox : NetworkBehaviour {
     public float amplitude;          //Set in Inspector 
     public float speed;                  //Set in Inspector 
-    private float tempVal;
-    private Vector3 tempPos;
+    private float _tempVal;
+    private Vector3 _tempPos;
     [SerializeField] private int ammoNumber = 20;
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        tempVal = transform.position.y;
+    void Start() {
+        _tempPos = transform.localPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        tempPos.y = tempVal + amplitude * Mathf.Sin(speed * Time.time);
-        transform.position = tempPos;
+        _tempPos.y = amplitude * Mathf.Sin(speed * Time.time);
+        transform.localPosition = _tempPos;
     }
 
 
@@ -34,7 +30,7 @@ public class AmmoBox : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && collision.GetComponent<HunterMovement>().isLocalPlayer)
+        if (collision.gameObject.tag.Equals("Player") && collision.GetComponent<HunterMovement>().isLocalPlayer)
         {
             HunterMovement.localPlayer.AddAmmoFromBox(this);
         }
