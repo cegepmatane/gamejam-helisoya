@@ -5,48 +5,31 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-public class BigfootController : NetworkBehaviour
-{
-
-
-   // public Grid Grid;
-    public OldPathFinder pathfinder;
-    //public Transform[] Objectives;
-
-    public Transform Spawn;
-    public Transform Objective;
-
-    public PerlinNoiseMap map;
+public class BigfootController : NetworkBehaviour {
     
-
+    // Mouvment Var
+    private PathFinder pathfinder;
+    public Transform Spawn;
+    public PerlinNoiseMap map;
     private Path m_Path;
-
-    [SerializeField] Bullet bullet;
-
     [SerializeField] private float speed;
-
-    [SerializeField] private float rotationSpeed;
-
-    public NetworkAnimator Animator;
-
+    private Vector3 MouvmentVector;
+    
+    // Health var
     public int maxHealth = 50;
     [SyncVar] public int currentHealth;
-
-    public float Speed = 10f;
-
-    private Vector3 chqngem;
-
-
-
+    
+    // Other var
+    public NetworkAnimator Animator;
+    
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-
         transform.position = Spawn.transform.position;
+        pathfinder = GetComponentInChildren<PathFinder>();
+        pathfinder.setMap(map);
     }
-
-    public float amplitude = 10f;          //Set in Inspector 
-    private Vector3 tempPos;
+    
 
     // Update is called once per frame
     void Update()
@@ -58,11 +41,9 @@ public class BigfootController : NetworkBehaviour
             print(currentHealth);
         }
 
+        MouvmentVector = pathfinder.getMouvmentVector(transform.position);
 
-        tempPos.x = 7;
-        tempPos.y = amplitude * Mathf.Sin(speed * Time.time);
-        transform.localPosition = tempPos;
-
+        transform.position = MouvmentVector + transform.position;
 
     }
 
