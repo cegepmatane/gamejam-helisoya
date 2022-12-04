@@ -512,7 +512,7 @@ MonoBehaviour:
   syncDirection: 1
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 2338397468704162809}
+  target: {fileID: 2338397469080202392}
   clientAuthority: 0
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
