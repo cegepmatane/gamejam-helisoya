@@ -88,8 +88,6 @@ public class PathFinder : MonoBehaviour
 
                 Vector3 newPodRotated = _currentPos + _tempRotatedDirectorVectort * speed * Time.deltaTime;
 
-
-
                 /*
                 while (map.impassibleTilemap.HasTile(new Vector3Int(Mathf.FloorToInt(newPodRotated.x), Mathf.FloorToInt(newPodRotated.y), 0)))
                 {

@@ -46,6 +46,8 @@ public class BigfootController : NetworkBehaviour
         // Todo use force and debug colision  And a Gizmo editor is available
 
         transform.position = MouvmentVector + transform.position;
+        
+        // Todo Rotation
 
     }
 
