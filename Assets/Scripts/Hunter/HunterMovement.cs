@@ -61,22 +61,28 @@ public class HunterMovement : NetworkBehaviour
             localPlayer = this;
             CmdSetPlayerName(PlayerPrefs.GetString("playerName"));
         }
+        else
+        {
+            playerNameText.text = playerName;
+        }
         currentAmmo = maxAmmo;
         totalAmmo = 18;
         stuned = false;
     }
 
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetPlayerName(string newName)
     {
+        print("server : " + newName);
         playerName = newName;
-        RpcReloadPlayerName();
+        CmdRefreshNameText();
     }
 
     [ClientRpc]
-    public void RpcReloadPlayerName()
+    public void CmdRefreshNameText()
     {
+        print("client : " + playerName);
         playerNameText.text = playerName;
     }
 
@@ -160,7 +166,7 @@ public class HunterMovement : NetworkBehaviour
 
 
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdColor(Color col)
     {
         RpcColor(col);
@@ -225,7 +231,7 @@ public class HunterMovement : NetworkBehaviour
         bullet.GetComponent<Bullet>().Init(vec, this);
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetWalkSound(bool value)
     {
         RpcSetWalkSound(value);
@@ -238,7 +244,7 @@ public class HunterMovement : NetworkBehaviour
     }
 
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdAddSound(string filename)
     {
         RpcAddSound(filename);

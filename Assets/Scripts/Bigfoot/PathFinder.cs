@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class PathFinder : MonoBehaviour
@@ -55,7 +57,7 @@ public class PathFinder : MonoBehaviour
 
         // ----- check collistion ----- //
 
-        Vector3 nextPos = _currentPos + vectorDirector * speed * Time.deltaTime;
+        Vector3 nextPos = _currentPos + vectorDirector * (speed * Time.deltaTime);
 
         if (map.impassibleTilemap.HasTile(new Vector3Int(Mathf.FloorToInt(nextPos.x), Mathf.FloorToInt(nextPos.y), 0)))
         {
@@ -63,7 +65,7 @@ public class PathFinder : MonoBehaviour
 
             // Check if last vectorDirector is good
 
-            Vector3 lastPosDirector = _currentPos + lastVectorDirector * speed * Time.deltaTime;
+            Vector3 lastPosDirector = _currentPos + lastVectorDirector * (speed * Time.deltaTime);
 
             if (map.impassibleTilemap.HasTile(new Vector3Int(Mathf.FloorToInt(lastPosDirector.x), Mathf.FloorToInt(lastPosDirector.y), 0)))
             {
@@ -88,8 +90,6 @@ public class PathFinder : MonoBehaviour
 
                 Vector3 newPodRotated = _currentPos + _tempRotatedDirectorVectort * speed * Time.deltaTime;
 
-
-
                 /*
                 while (map.impassibleTilemap.HasTile(new Vector3Int(Mathf.FloorToInt(newPodRotated.x), Mathf.FloorToInt(newPodRotated.y), 0)))
                 {
@@ -113,42 +113,35 @@ public class PathFinder : MonoBehaviour
         return movementVector;
     }
 
-    private void shuffleTargets()
-    {
-        for (int i = 0; i < Targets.Count; i++)
-        {
+    private void shuffleTargets() {
+        for (int i = 0; i < Targets.Count; i++) {
             Vector3 _temp = Targets[i];
             int randomIndex = Random.Range(i, Targets.Count);
             Targets[i] = Targets[randomIndex];
             Targets[randomIndex] = _temp;
         }
-
-
     }
-    public void OnDrawGizmosSelected()
-    {
+    
 
+    public void OnDrawGizmosSelected() {
         // Draw Full path
         Vector3 _tempVector3 = Targets[0];
         Gizmos.color = Color.white;
-        foreach (Vector3 Target in Targets)
-        {
+        foreach (Vector3 Target in Targets) {
             Gizmos.DrawLine(_tempVector3, Target);
             _tempVector3 = Target;
         }
         // From last to first target
         Gizmos.DrawLine(_tempVector3, Targets[0]);
-
-
-        if (Physics.Raycast(transform.position, vectorDirector, out raycastHitDirection, speed))
-        {
+        
+        if (Physics.Raycast(transform.position, vectorDirector, out raycastHitDirection, speed)) {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, transform.position + (vectorDirector * raycastHitDirection.distance));
         }
-        else
-        {
+        else {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, transform.position + (vectorDirector * speed));
         }
     }
+
 }
