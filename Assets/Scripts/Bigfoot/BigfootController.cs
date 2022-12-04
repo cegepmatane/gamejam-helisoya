@@ -24,13 +24,14 @@ public class BigfootController : NetworkBehaviour
 
     public AudioSource generalAudio;
 
-    public override void OnStartServer()
+    public void Init()
     {
         currentHealth = maxHealth;
         pathfinder = GetComponentInChildren<PathFinder>();
         pathfinder.setMap(map);
         pathfinder.setSpeed(speed);
         transform.position = map.getBigFootSpawn();
+        GameGUI.instance.bfHealth.SetHealth(currentHealth, maxHealth);
     }
 
 
@@ -38,16 +39,12 @@ public class BigfootController : NetworkBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            TakeDamage(10);
-            print(currentHealth);
-        }
+        if (!isServer) return;
 
         MouvmentVector = pathfinder.getMouvmentVector(transform.position);
 
         // Todo use force and debug colision  And a Gizmo editor is available
-        
+
         transform.position = MouvmentVector + transform.position;
 
     }

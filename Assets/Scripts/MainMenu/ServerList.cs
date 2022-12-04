@@ -24,6 +24,11 @@ public class ServerList : MonoBehaviour
     [SerializeField] private TMP_InputField ipInput;
     [SerializeField] private TMP_InputField playerNameInput;
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     void Start()
     {
 

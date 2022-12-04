@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 using Tile = UnityEngine.Tilemaps.Tile;
 
+
 public class PerlinNoiseMap : NetworkBehaviour
 {
 
@@ -139,6 +140,7 @@ public class PerlinNoiseMap : NetworkBehaviour
 
             }
         }
+        FindObjectOfType<BigfootController>().Init();
     }
 
 
