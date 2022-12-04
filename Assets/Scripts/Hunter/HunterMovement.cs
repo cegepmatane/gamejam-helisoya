@@ -76,14 +76,15 @@ public class HunterMovement : NetworkBehaviour
     {
         print("server : " + newName);
         playerName = newName;
-        CmdRefreshNameText();
+        CmdRefreshNameText(newName);
     }
 
     [ClientRpc]
-    public void CmdRefreshNameText()
+    public void CmdRefreshNameText(string value)
     {
-        print("client : " + playerName);
-        playerNameText.text = playerName;
+        print("client : " + value);
+        if (playerName != value) playerName = value;
+        playerNameText.text = value;
     }
 
 
@@ -93,6 +94,7 @@ public class HunterMovement : NetworkBehaviour
         {
             transform.position = FindObjectOfType<NetworkStartPosition>().transform.position;
         }
+        playerNameText.text = playerName;
     }
 
     void Update()

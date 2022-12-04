@@ -18,6 +18,7 @@ public class GameGUI : NetworkBehaviour
     [SerializeField] private GameObject normalPauseScreen;
     [SerializeField] private GameObject helpPauseScreen;
     [SerializeField] private Transform pauseScreenPlayersRoot;
+    [SerializeField] private GameObject playerPrefab;
     public bool paused { get { return pauseMenu.activeInHierarchy || endRoot.activeInHierarchy; } }
 
     [Header("BigFoot")]
@@ -46,9 +47,37 @@ public class GameGUI : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseMenu.SetActive(!pauseMenu.activeInHierarchy);
+            if (pauseMenu.activeInHierarchy)
+            {
+                RefreshPlayers();
+            }
         }
     }
 
+
+    public void RefreshPlayers()
+    {
+        foreach (Transform child in pauseScreenPlayersRoot)
+        {
+            Destroy(child.gameObject);
+        }
+
+        HunterMovement[] players = FindObjectsOfType<HunterMovement>();
+
+        foreach (HunterMovement player in players)
+        {
+            Instantiate(playerPrefab, pauseScreenPlayersRoot).GetComponent<PausePlayerInfo>().Init(player);
+        }
+
+        RectTransform rect = pauseScreenPlayersRoot.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(rect.sizeDelta.x, 50 * players.Length);
+    }
+
+    public void SetPauseHelpMode(bool value)
+    {
+        normalPauseScreen.SetActive(!value);
+        helpPauseScreen.SetActive(value);
+    }
 
     public void CloseGame()
     {
@@ -77,7 +106,6 @@ public class GameGUI : NetworkBehaviour
 
         rankText.text = "Rank : " + GetRank(badShot, goodShot, friendlyShot);
     }
-
 
     public string GetRank(int missed, int good, int friendly)
     {
